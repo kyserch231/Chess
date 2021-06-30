@@ -1,5 +1,5 @@
 package chess;
 
-public class menu {
+public class ChessMain {
 
 }
