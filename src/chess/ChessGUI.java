@@ -216,7 +216,7 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener, C
 			if (!Board.getBoard().isEmpty(x,y)) {
 				
 				// set border to blue
-				((JPanel) e.getComponent()).setBorder(new LineBorder(Color.BLUE,3));
+				((JPanel) e.getComponent()).setBorder(new LineBorder(Color.BLUE,2));
 				selected = true;
 				
 				// set currently selected square
@@ -246,7 +246,7 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener, C
 			else if (Board.getBoard().getPiece(xSel, ySel).isValidMove(x, y)) {
 				
 				moveLabel(selectedSpace, (JPanel) e.getComponent());
-				((JPanel) e.getComponent()).setBorder(new LineBorder(Color.RED,3));
+				((JPanel) e.getComponent()).setBorder(new LineBorder(Color.RED,2));
 				Board.getBoard().getPiece(xSel, ySel).move(x, y);
 				
 				selected = false;
