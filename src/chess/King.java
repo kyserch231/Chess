@@ -45,7 +45,9 @@ public class King extends Movable implements Constants, Piece {
 
 	@Override
 	public void kill() {
-		// TODO Auto-generated method stub
+		
+		// pop up of who won
+		state = INACTIVE;
 		
 	}
 

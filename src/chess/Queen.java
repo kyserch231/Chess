@@ -28,7 +28,7 @@ public class Queen extends Movable implements Constants, Piece {
 
 	@Override
 	public void kill() {
-		// TODO Auto-generated method stub
+		state = INACTIVE;
 		
 	}
 
