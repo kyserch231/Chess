@@ -1,6 +1,8 @@
 package chess;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.util.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener; 
 
-public class ChessGUI extends JFrame implements ActionListener, MouseListener{
+public class ChessGUI extends JFrame implements ActionListener, MouseListener, Constants{
 	private String rules = "The ultimate aim in the chess game is delivering a checkmate – trapping your opponent´s king.\n"
 						 + "White is always first to move and players take turns alternately moving one piece at a time.\n"
 						 + "Movement is required. If a player´s turn is to move, he is not in check but has no legal moves,\n"
@@ -40,6 +42,11 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener{
 	JPanel pane = new JPanel(new GridBagLayout());
 	JPanel board= new JPanel(new GridLayout(8,8));
 	
+
+	JPanel selectedSpace;
+	boolean selected = false;
+	public static final int SQUARE_SIZE = 83;
+	
     
     public static void main(String args[]){
     	ChessGUI gui = new ChessGUI();
@@ -50,6 +57,7 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener{
 		gui.getContentPane().setPreferredSize(new Dimension(600,600));
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gui.setVisible(true);
+		
 	}
     
 	public ChessGUI() {
@@ -74,6 +82,7 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener{
 			board.add(label, n);
 			n++;
 		}
+		
 		
 		((JPanel) board.getComponent(0)).remove(0);
 		((JPanel) board.getComponent(0)).add(new JLabel(new ImageIcon("rookB.png")));
@@ -143,6 +152,7 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener{
 		
 		setupMenus();
 	}
+	
 	private void setupMenus(){
 
         // create quit menu item
@@ -185,8 +195,116 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		((JPanel) e.getComponent()).setBackground(Color.blue);
 		
+		// calculate the x and y location of clicked square
+		int x = e.getComponent().getX() / SQUARE_SIZE + 1;
+		if (e.getComponent().getX() == 0)
+			x = 0;
+		int y = e.getComponent().getY() / SQUARE_SIZE + 1;
+		if (e.getComponent().getY() == 0)
+			y = 0;
+		
+		System.out.println("(" + x + ", " + y + ")");
+
+		if (Board.getBoard().isEmpty(x,y))
+			System.out.println(" is Empty");
+		
+		
+		// if a square is not currently selected
+		if (!selected) {
+			
+			if (!Board.getBoard().isEmpty(x,y)) {
+				
+				// set border to blue
+				((JPanel) e.getComponent()).setBorder(new LineBorder(Color.BLUE,3));
+				selected = true;
+				
+				// set currently selected square
+				selectedSpace = (JPanel) e.getComponent();
+			}
+		}
+		
+		// if a square is currently selected
+		else if (selected) {
+			
+			// calculate the x and y location of previous selected square
+			int xSel = selectedSpace.getX() / SQUARE_SIZE + 1;
+			if (selectedSpace.getX() == 0)
+				xSel = 0;
+			int ySel = selectedSpace.getY() / SQUARE_SIZE + 1;
+			if (selectedSpace.getY() == 0)
+				ySel = 0;
+			
+			// if the same square is selected, then un-select it
+			if (xSel == x && ySel == y) {
+				selected = false;
+				((JPanel) e.getComponent()).setBorder(new LineBorder(null));
+				selectedSpace.setBorder(new LineBorder(null));
+			}
+			
+			// if the move is valid, highlight space, move piece and move gui lable
+			else if (Board.getBoard().getPiece(xSel, ySel).isValidMove(x, y)) {
+				
+				moveLabel(selectedSpace, (JPanel) e.getComponent());
+				((JPanel) e.getComponent()).setBorder(new LineBorder(Color.RED,3));
+				Board.getBoard().getPiece(xSel, ySel).move(x, y);
+				
+				selected = false;
+				((JPanel) e.getComponent()).setBorder(new LineBorder(null));
+				selectedSpace.setBorder(new LineBorder(null));
+			}
+		}
+		//Board.getBoard().printBoard();
+	}
+	
+	
+	public void moveLabel(JPanel moveFrom, JPanel moveTo) {
+		
+		moveTo.removeAll();
+		moveFrom.removeAll();
+		
+		int x = moveFrom.getX() / SQUARE_SIZE + 1;
+		if (moveFrom.getX() == 0)
+			x = 0;
+		int y = moveFrom.getY() / SQUARE_SIZE + 1;
+		if (moveFrom.getY() == 0)
+			y = 0;
+		
+		if (Board.getBoard().getPiece(x, y).getColor() == BLACK) {
+			
+			if (Board.getBoard().getPiece(x, y) instanceof Pawn)
+				moveTo.add(new JLabel(new ImageIcon("pawnB.png")));
+			else if (Board.getBoard().getPiece(x, y) instanceof Rook)
+				moveTo.add(new JLabel(new ImageIcon("rookB.png")));
+			else if (Board.getBoard().getPiece(x, y) instanceof Queen)
+				moveTo.add(new JLabel(new ImageIcon("queenB.png")));
+			else if (Board.getBoard().getPiece(x, y) instanceof King)
+				moveTo.add(new JLabel(new ImageIcon("kingB.png")));
+			else if (Board.getBoard().getPiece(x, y) instanceof Knight)
+				moveTo.add(new JLabel(new ImageIcon("horseB.png")));
+			else if (Board.getBoard().getPiece(x, y) instanceof Bishop)
+				moveTo.add(new JLabel(new ImageIcon("bishopB.png")));
+		}
+		if (Board.getBoard().getPiece(x, y).getColor() == WHITE) {
+			
+			if (Board.getBoard().getPiece(x, y) instanceof Pawn)
+				moveTo.add(new JLabel(new ImageIcon("pawnW.png")));
+			else if (Board.getBoard().getPiece(x, y) instanceof Rook)
+				moveTo.add(new JLabel(new ImageIcon("rookW.png")));
+			else if (Board.getBoard().getPiece(x, y) instanceof Queen)
+				moveTo.add(new JLabel(new ImageIcon("queenW.png")));
+			else if (Board.getBoard().getPiece(x, y) instanceof King)
+				moveTo.add(new JLabel(new ImageIcon("kingW.png")));
+			else if (Board.getBoard().getPiece(x, y) instanceof Knight)
+				moveTo.add(new JLabel(new ImageIcon("horseW.png")));
+			else if (Board.getBoard().getPiece(x, y) instanceof Bishop)
+				moveTo.add(new JLabel(new ImageIcon("bishopW.png")));
+		}
+		
+		board.revalidate();
+		board.repaint();
+		pane.revalidate();
+		pane.repaint();
 	}
 
 	@Override

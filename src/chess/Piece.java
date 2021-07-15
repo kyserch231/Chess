@@ -4,17 +4,13 @@ public interface Piece {
 	/*
 	 * check to see if the move is valid
 	 * */
-	boolean validateMove(Location destination);
+	boolean isValidMove(int x, int y);
 	
 	/*
 	 * makes the move and returns true if success , otherwise false
 	 * */
-	boolean makeMove(Location destination);
+	void move(int xMove, int yMove);
 	
-	/*
-	 *	Checks to see if the opposing king is checked 
-	 * */
-	boolean hasCheckOnOpossingKing(Location positionOfOpposingKing);
 	
 	/*
 	 *	Active or not 
@@ -31,10 +27,6 @@ public interface Piece {
 	 * */
 	boolean isWhite();
 	
-	/*
-	 * 
-	 * */
-	Piece kill(Piece a);
 	
 	/*
 	 * 
@@ -44,7 +36,9 @@ public interface Piece {
 	
 	public int getColor();
 	
-	public void setPosition(Location l);
-	
 	public void setState(boolean a);
+	
+	public void kill();
+	
+	public String getName();
 }
