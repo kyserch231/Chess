@@ -17,14 +17,21 @@ public class King extends Movable implements Constants, Piece {
 		
 		// king can move one space up, back, or diagonally
 		
-		if (disX == 1 && disY == 0)
-			return true;
+		if ((disX == 1 && disY == 0) || (disX == 0 && disY == 1) || (disX == 1 && disY == 1)) {
 		
-		if (disX == 0 && disY == 1)
-			return true;
-		
-		if (disX == 1 && disY == 1)
-			return true;
+			// if selected location contains another piece in the same color, move is invalid
+			if (Board.getBoard().getColorAt(x, y) == color)
+				return false;
+			
+			// if selected location contains a piece in the opposite color, then that piece is killed
+			if (Board.getBoard().getColorAt(x, y) != color && !Board.getBoard().isEmpty(x, y)) {
+				Board.getBoard().getPiece(x, y).kill();
+				System.out.println("bishop attach");
+				return true;
+			}
+			else if (Board.getBoard().isEmpty(x, y))
+				return true;
+		}
 		
 		return false;
 	}
