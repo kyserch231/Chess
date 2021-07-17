@@ -16,7 +16,6 @@ public class King extends Movable implements Constants, Piece {
 		int disY = Math.abs(y - position.getPositionY());
 		
 		// king can move one space up, back, or diagonally
-		
 		if ((disX == 1 && disY == 0) || (disX == 0 && disY == 1) || (disX == 1 && disY == 1)) {
 		
 			// if selected location contains another piece in the same color, move is invalid
