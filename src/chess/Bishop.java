@@ -24,27 +24,27 @@ public class Bishop extends Movable implements Constants, Piece {
 			// if the selected square is to the bottom right
 			if (disX > 0 && disY > 0) {
 				for (i = position.getPositionX(); i < x; ++i, ++j)
-					if (!Board.getBoard().isEmpty(i+1, j+1) && i+1 != x && j+1 != j)
+					if (!Board.getBoard().isEmpty(i+1, j+1) && i+1 != x && j+1 != y)
 						return false;
 			}
 			// if the selected square is to the bottom left
 			else if (disX < 0 && disY > 0) {
 				for (i = position.getPositionX(); i < x; --i, ++j)
-					if (!Board.getBoard().isEmpty(i-1, j+1) && i-1 != x && j+1 != j)
+					if (!Board.getBoard().isEmpty(i-1, j+1) && i-1 != x && j+1 != y)
 						return false;
 			}
 			
 			// if the selected square is to the top right
 			else if (disX > 0 && disY < 0) {
 				for (i = position.getPositionX(); i < x; ++i, --j)
-					if (!Board.getBoard().isEmpty(i+1, j-1) && i+1 != x && j-1 != j)
+					if (!Board.getBoard().isEmpty(i+1, j-1) && i+1 != x && j-1 != y)
 						return false;
 			}
 			
 			// if the selected square is to the top left
 			else if (disX < 0 && disY < 0) {
 				for (i = position.getPositionX(); i < x; --i, --j)
-					if (!Board.getBoard().isEmpty(i-1, j-1) && i-1 != x && j-1 != j)
+					if (!Board.getBoard().isEmpty(i-1, j-1) && i-1 != x && j-1 != y)
 						return false;
 			}
 		
