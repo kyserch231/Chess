@@ -17,7 +17,7 @@ public class Queen extends Movable implements Constants, Piece {
 		int disY = (y - position.getPositionY());
 		
 		
-		if (Math.abs(disY) == Math.abs(disX) || (disY == 0 || disX == 0)) {
+		if (Math.abs(disY) == Math.abs(disX) || (disY == 0 || disX == 0) && Board.getBoard().getTurn() == color) {
 				
 			if (disY == 0) {
 				// move right across the board
@@ -89,10 +89,13 @@ public class Queen extends Movable implements Constants, Piece {
 			if (Board.getBoard().getColorAt(x, y) != color && !Board.getBoard().isEmpty(x, y)) {
 				Board.getBoard().getPiece(x, y).kill();
 				System.out.println("queen attach");
+				Board.getBoard().togleTurn();
 				return true;
 			}
-			else if (Board.getBoard().isEmpty(x, y))
+			else if (Board.getBoard().isEmpty(x, y)) {
+				Board.getBoard().togleTurn();
 				return true;
+			}
 		}
 		
 		return false;

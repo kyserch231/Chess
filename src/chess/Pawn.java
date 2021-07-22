@@ -22,34 +22,42 @@ public class Pawn extends Movable implements Constants, Piece {
 		System.out.println(disX + ", " + disY);
 		
 		// pawn can move two spaces up on first move, one space up, and one space diagonally to attach
-		if (color == BLACK) {
+		if (color == BLACK && Board.getBoard().getTurn() == BLACK) {
 			
 			if (Board.getBoard().isEmpty(x, y)) {
-				if (hasMoved && disY == 1 && disX == 0)
+				if (hasMoved && disY == 1 && disX == 0) {
+					Board.getBoard().togleTurn();
 					return true;
-			
-				else if (!hasMoved && (disY == 2 || disY == 1) && disX == 0)
+				}
+				else if (!hasMoved && (disY == 2 || disY == 1) && disX == 0) {
+					Board.getBoard().togleTurn();
 					return true;
+				}
 			} else if (hasMoved && disY == 1 && (disX == 1 || disX == -1) && Board.getBoard().getColorAt(x, y) == WHITE) {
 				Board.getBoard().getPiece(x, y).kill();
+				Board.getBoard().togleTurn();
 				return true;
 			}
 		}
 		
-		if (color == WHITE) {
+		if (color == WHITE && Board.getBoard().getTurn() == WHITE) {
 			
 			if (Board.getBoard().isEmpty(x, y)) {
-				if (hasMoved && disY == -1 && disX == 0)
+				if (hasMoved && disY == -1 && disX == 0) {
+					Board.getBoard().togleTurn();
 					return true;
+				}
 			
-				else if (!hasMoved && (disY == -2 || disY == -1) && disX == 0)
+				else if (!hasMoved && (disY == -2 || disY == -1) && disX == 0) {
+					Board.getBoard().togleTurn();
 					return true;
+				}
 			} else if (hasMoved && disY == -1 && (disX == 1 || disX == -1) && Board.getBoard().getColorAt(x, y) == BLACK) {
 				Board.getBoard().getPiece(x, y).kill();
+				Board.getBoard().togleTurn();
 				return true;
 			}
 		}
-		
 		return false;
 	}
 

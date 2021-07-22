@@ -26,6 +26,7 @@ public class Board implements Constants{
 	
 
 	public static Board gameBoard = null;
+	public int turn = WHITE;
 	
 	public static Board getBoard(){
 		if(gameBoard == null){
@@ -39,7 +40,7 @@ public class Board implements Constants{
 	ArrayList<Piece> BlackPieces;
 	
 	private Board(){
-		
+		turn = WHITE;
 		WhitePieces= new ArrayList<Piece>();
 		BlackPieces= new ArrayList<Piece>();
 		initializeBoard();
@@ -106,12 +107,25 @@ public class Board implements Constants{
 			return null;
 	}
 	
+	public int getTurn() {
+		return turn;
+	}
+	
 	public void setPiece(Piece p) {
 		chessBoard[p.getLocation().getPositionX()][p.getLocation().getPositionY()] = p;
 	}
 	
 	public void setToEmpty(int x, int y) {
 		chessBoard[x][y] = null;
+	}
+	
+	public void togleTurn() {
+		if(turn == WHITE) {
+			turn = BLACK;
+		}
+		else {
+			turn = WHITE;
+		}
 	}
 	
 	public void printBoard() {

@@ -15,7 +15,7 @@ public class Rook extends Movable implements Constants, Piece {
 		int disX = (x - position.getPositionX());
 		int disY = (y - position.getPositionY());
 		
-		if (disY == 0 || disX == 0) {
+		if (disY == 0 || disX == 0 && Board.getBoard().getTurn() == color) {
 			
 			// determines if there are any pieces in the way between selected square and current square,
 			// move in invalid if there are any pieces
@@ -60,10 +60,13 @@ public class Rook extends Movable implements Constants, Piece {
 			if (Board.getBoard().getColorAt(x, y) != color && !Board.getBoard().isEmpty(x, y)) {
 				Board.getBoard().getPiece(x, y).kill();
 				System.out.println("rook attach");
+				Board.getBoard().togleTurn();
 				return true;
 			}
-			else if (Board.getBoard().isEmpty(x, y))
+			else if (Board.getBoard().isEmpty(x, y)) {
+				Board.getBoard().togleTurn();
 				return true;
+			}
 		}
 
 		

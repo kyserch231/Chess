@@ -16,17 +16,20 @@ public class Knight extends Movable implements Constants, Piece {
 		int disY = Math.abs(y - position.getPositionY());
 			
 		System.out.println(disX + ", " + disY);
+		if(color == Board.getBoard().getTurn()) {
+			if ((disX == 1 && disY == 2) || (disX == 2 && disY == 1)) {
+				if (Board.getBoard().isEmpty(x, y)) {
+					Board.getBoard().togleTurn();
+					return true;
+				}
 				
-		if ((disX == 1 && disY == 2) || (disX == 2 && disY == 1)) {
-			if (Board.getBoard().isEmpty(x, y))
-				return true;
-			
-			else if (!Board.getBoard().isEmpty(x, y) && Board.getBoard().getColorAt(x, y) != color) {
-				Board.getBoard().getPiece(x, y).kill();
-				return true;
+				else if (!Board.getBoard().isEmpty(x, y) && Board.getBoard().getColorAt(x, y) != color) {
+					Board.getBoard().getPiece(x, y).kill();
+					Board.getBoard().togleTurn();
+					return true;
+				}
 			}
 		}
-		
 		return false;
 	}
 

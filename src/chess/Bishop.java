@@ -18,48 +18,102 @@ public class Bishop extends Movable implements Constants, Piece {
 		// determines if there are any pieces in the way between selected square and current square,
 		// move in invalid if there are any pieces
 		if (Math.abs(disY) == Math.abs(disX)) {
+			if(color == BLACK && Board.getBoard().getTurn() == BLACK) {
+				int i = position.getPositionX(); int j = position.getPositionY();
+				
+				// if the selected square is to the bottom right
+				if (disX > 0 && disY > 0) {
+					for (i = position.getPositionX(); i < x; ++i, ++j)
+						if (!Board.getBoard().isEmpty(i+1, j+1) && i+1 != x && j+1 != y)
+							return false;
+				}
+				// if the selected square is to the bottom left
+				else if (disX < 0 && disY > 0) {
+					for (i = position.getPositionX(); i < x; --i, ++j)
+						if (!Board.getBoard().isEmpty(i-1, j+1) && i-1 != x && j+1 != y)
+							return false;
+				}
+				
+				// if the selected square is to the top right
+				else if (disX > 0 && disY < 0) {
+					for (i = position.getPositionX(); i < x; ++i, --j)
+						if (!Board.getBoard().isEmpty(i+1, j-1) && i+1 != x && j-1 != y)
+							return false;
+				}
+				
+				// if the selected square is to the top left
+				else if (disX < 0 && disY < 0) {
+					for (i = position.getPositionX(); i < x; --i, --j)
+						if (!Board.getBoard().isEmpty(i-1, j-1) && i-1 != x && j-1 != y)
+							return false;
+				}
 			
-			int i = position.getPositionX(); int j = position.getPositionY();
+				// if selected location contains another piece in the same color, move is invalid
+				if (Board.getBoard().getColorAt(x, y) == color) {
+					Board.getBoard().togleTurn();
+					return false;
+				}
+				
+				// if selected location contains a piece in the opposite color, then that piece is killed
+				if (Board.getBoard().getColorAt(x, y) != color && !Board.getBoard().isEmpty(x, y)) {
+					Board.getBoard().getPiece(x, y).kill();
+					System.out.println("bishop attach");
+					Board.getBoard().togleTurn();
+					return true;
+				}
+				if (Board.getBoard().isEmpty(x, y)) {
+					Board.getBoard().togleTurn();
+					return true;
+				}
+			}
+			if(color == WHITE && Board.getBoard().getTurn() == WHITE) {
+				int i = position.getPositionX(); int j = position.getPositionY();
+				
+				// if the selected square is to the bottom right
+				if (disX > 0 && disY > 0) {
+					for (i = position.getPositionX(); i < x; ++i, ++j)
+						if (!Board.getBoard().isEmpty(i+1, j+1) && i+1 != x && j+1 != y)
+							return false;
+				}
+				// if the selected square is to the bottom left
+				else if (disX < 0 && disY > 0) {
+					for (i = position.getPositionX(); i < x; --i, ++j)
+						if (!Board.getBoard().isEmpty(i-1, j+1) && i-1 != x && j+1 != y)
+							return false;
+				}
+				
+				// if the selected square is to the top right
+				else if (disX > 0 && disY < 0) {
+					for (i = position.getPositionX(); i < x; ++i, --j)
+						if (!Board.getBoard().isEmpty(i+1, j-1) && i+1 != x && j-1 != y)
+							return false;
+				}
+				
+				// if the selected square is to the top left
+				else if (disX < 0 && disY < 0) {
+					for (i = position.getPositionX(); i < x; --i, --j)
+						if (!Board.getBoard().isEmpty(i-1, j-1) && i-1 != x && j-1 != y)
+							return false;
+				}
 			
-			// if the selected square is to the bottom right
-			if (disX > 0 && disY > 0) {
-				for (i = position.getPositionX(); i < x; ++i, ++j)
-					if (!Board.getBoard().isEmpty(i+1, j+1) && i+1 != x && j+1 != y)
-						return false;
+				// if selected location contains another piece in the same color, move is invalid
+				if (Board.getBoard().getColorAt(x, y) == color) {
+					Board.getBoard().togleTurn();
+					return false;
+				}
+				
+				// if selected location contains a piece in the opposite color, then that piece is killed
+				if (Board.getBoard().getColorAt(x, y) != color && !Board.getBoard().isEmpty(x, y)) {
+					Board.getBoard().getPiece(x, y).kill();
+					System.out.println("bishop attach");
+					Board.getBoard().togleTurn();
+					return true;
+				}
+				if (Board.getBoard().isEmpty(x, y)) {
+					Board.getBoard().togleTurn();
+					return true;
+				}
 			}
-			// if the selected square is to the bottom left
-			else if (disX < 0 && disY > 0) {
-				for (i = position.getPositionX(); i < x; --i, ++j)
-					if (!Board.getBoard().isEmpty(i-1, j+1) && i-1 != x && j+1 != y)
-						return false;
-			}
-			
-			// if the selected square is to the top right
-			else if (disX > 0 && disY < 0) {
-				for (i = position.getPositionX(); i < x; ++i, --j)
-					if (!Board.getBoard().isEmpty(i+1, j-1) && i+1 != x && j-1 != y)
-						return false;
-			}
-			
-			// if the selected square is to the top left
-			else if (disX < 0 && disY < 0) {
-				for (i = position.getPositionX(); i < x; --i, --j)
-					if (!Board.getBoard().isEmpty(i-1, j-1) && i-1 != x && j-1 != y)
-						return false;
-			}
-		
-			// if selected location contains another piece in the same color, move is invalid
-			if (Board.getBoard().getColorAt(x, y) == color)
-				return false;
-			
-			// if selected location contains a piece in the opposite color, then that piece is killed
-			if (Board.getBoard().getColorAt(x, y) != color && !Board.getBoard().isEmpty(x, y)) {
-				Board.getBoard().getPiece(x, y).kill();
-				System.out.println("bishop attach");
-				return true;
-			}
-			else if (Board.getBoard().isEmpty(x, y))
-				return true;
 		}
 		
 		return false;
