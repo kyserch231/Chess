@@ -1,5 +1,8 @@
 package chess;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class King extends Movable implements Constants, Piece {
 
 	public King(int x, int y, int clr) {
@@ -74,6 +77,9 @@ public class King extends Movable implements Constants, Piece {
 		
 		// pop up of who won
 		state = INACTIVE;
+		JFrame frame = new JFrame("JOptionPane showMessageDialog example");
+		JOptionPane.showMessageDialog(frame, "You have won, use the file tab to play again!");
+
 		
 	}
 

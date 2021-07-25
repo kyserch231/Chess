@@ -37,6 +37,7 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener, C
 	JMenuBar menus;
     JMenu fileMenu;
     JMenuItem quitItem;
+    JMenuItem restartItem;
     JMenuItem rulesItem;
     
 	JPanel pane = new JPanel(new GridBagLayout());
@@ -57,7 +58,6 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener, C
 		gui.getContentPane().setPreferredSize(new Dimension(600,600));
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gui.setVisible(true);
-		
 	}
     
 	public ChessGUI() {
@@ -158,6 +158,10 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener, C
         // create quit menu item
         quitItem = new JMenuItem("Quit");
         quitItem.addActionListener(this);
+        
+     // create quit menu item
+        restartItem = new JMenuItem("Restart");
+        restartItem.addActionListener(this);
 
         // create open... item menu
         rulesItem = new JMenuItem("Rules");
@@ -166,6 +170,7 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener, C
         // add items to menu
         fileMenu = new JMenu("File");
         fileMenu.add(rulesItem);
+        fileMenu.add(restartItem);
         fileMenu.add(quitItem);
 
         // display menu bar and File menu
@@ -185,6 +190,22 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener, C
         if (e.getSource() == quitItem){
             System.exit(1);
         }
+        if (e.getSource() == restartItem){
+            resetBoard();
+        }
+	}
+
+	private void resetBoard() {
+		ChessGUI gui = new ChessGUI();
+    	gui.pane.add(gui.board);
+		gui.add(gui.pane);
+		gui.setSize(1000, 1000);
+		gui.setTitle("The Game of Chess");
+		gui.getContentPane().setPreferredSize(new Dimension(600,600));
+		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gui.setVisible(true);
+		Board.getBoard().initializeBoard();
+		
 	}
 
 	@Override
@@ -214,13 +235,23 @@ public class ChessGUI extends JFrame implements ActionListener, MouseListener, C
 		if (!selected) {
 			
 			if (!Board.getBoard().isEmpty(x,y)) {
+				if(Board.getBoard().getTurn() == WHITE && Board.getBoard().getPiece(x, y).getColor() == WHITE) {
+					// set border to blue
+					((JPanel) e.getComponent()).setBorder(new LineBorder(Color.BLUE,2));
+					selected = true;
+					
+					// set currently selected square
+					selectedSpace = (JPanel) e.getComponent();
+				}
+				else if(Board.getBoard().getTurn() == BLACK && Board.getBoard().getPiece(x, y).getColor() == BLACK) {
+					// set border to blue
+					((JPanel) e.getComponent()).setBorder(new LineBorder(Color.BLUE,2));
+					selected = true;
+					
+					// set currently selected square
+					selectedSpace = (JPanel) e.getComponent();
+				}
 				
-				// set border to blue
-				((JPanel) e.getComponent()).setBorder(new LineBorder(Color.BLUE,2));
-				selected = true;
-				
-				// set currently selected square
-				selectedSpace = (JPanel) e.getComponent();
 			}
 		}
 		

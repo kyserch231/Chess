@@ -40,7 +40,6 @@ public class Board implements Constants{
 	ArrayList<Piece> BlackPieces;
 	
 	private Board(){
-		turn = WHITE;
 		WhitePieces= new ArrayList<Piece>();
 		BlackPieces= new ArrayList<Piece>();
 		initializeBoard();
@@ -82,6 +81,7 @@ public class Board implements Constants{
 		for (Piece w: WhitePieces){
 			chessBoard[w.getLocation().getPositionX()][w.getLocation().getPositionY()]= w;
 		}
+		turn = WHITE;
 	}
 
 	
@@ -141,5 +141,9 @@ public class Board implements Constants{
 			System.out.print("|------|------|------|------|------|------|------|------|");
 			System.out.println();
 		}
+	}
+
+	public void setTurn(int x) {
+		turn = x;
 	}
 }
