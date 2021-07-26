@@ -443,15 +443,15 @@ ActionListener, MouseListener {
     }
     
     private void resetBoard() {
-		ChessGUI gui = new ChessGUI();
-    	gui.pane.add(gui.board);
-		gui.add(gui.pane);
-		gui.setSize(1000, 1000);
-		gui.setTitle("The Game of Chess");
-		gui.getContentPane().setPreferredSize(new Dimension(600,600));
-		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gui.setVisible(true);
-		Board.getBoard().initializeBoard();
+//		ChessGUI gui = new ChessGUI();
+//    	gui.pane.add(gui.board);
+//		gui.add(gui.pane);
+//		gui.setSize(1000, 1000);
+//		gui.setTitle("The Game of Chess");
+//		gui.getContentPane().setPreferredSize(new Dimension(600,600));
+//		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		gui.setVisible(true);
+		Board.getBoard().resetBoard();
 	}
 
 
