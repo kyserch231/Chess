@@ -3,6 +3,9 @@ package chess;
 import static chess.Constants.ACTIVE;
 import static chess.Constants.INACTIVE;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class King extends Movable implements Piece {
     /**
      * Initializes a new piece by setting the position,
@@ -89,5 +92,7 @@ public class King extends Movable implements Piece {
     public void kill() {
         // pop up of who won
         setState(INACTIVE);
+        JFrame frame = new JFrame("JOptionPane showMessageDialog example");
+		JOptionPane.showMessageDialog(frame, "You have won, use the file tab to play again!");
     }
 }
