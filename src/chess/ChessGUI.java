@@ -96,6 +96,9 @@ ActionListener, MouseListener {
 
     /** Menu item to quit the game. */
     private JMenuItem quitItem;
+    
+    /** Menu item to restart the game. */
+    JMenuItem restartItem;
 
     /** Menu item to view the rules of the game. */
     private JMenuItem rulesItem;
@@ -230,10 +233,15 @@ ActionListener, MouseListener {
         // create open... item menu
         rulesItem = new JMenuItem("Rules");
         rulesItem.addActionListener(this);
+        
+     // create restart menu item
+        restartItem = new JMenuItem("Restart");
+        restartItem.addActionListener(this);
 
         // add items to menu
         fileMenu = new JMenu("File");
         fileMenu.add(rulesItem);
+        fileMenu.add(restartItem);
         fileMenu.add(quitItem);
 
         // display menu bar and File menu
@@ -254,6 +262,10 @@ ActionListener, MouseListener {
         // user selects quit
         if (e.getSource() == quitItem) {
             System.exit(1);
+        }
+        // user selects restart
+        if (e.getSource() == restartItem){
+            resetBoard();
         }
     }
 
@@ -288,12 +300,24 @@ ActionListener, MouseListener {
         // if a square is not currently selected
         if (!selected) {
             if (!Board.getBoard().isEmpty(x, y)) {
-                // set border to blue
-                ((JPanel) e.getComponent()).setBorder(
-                        new LineBorder(Color.BLUE, 2));
-                selected = true;
-                // set currently selected square
-                selectedSpace = (JPanel) e.getComponent();
+            	if(Board.getBoard().getTurn() == WHITE && 
+            	Board.getBoard().getPiece(x, y).getColor() == WHITE) {
+            		// set border to blue
+                    ((JPanel) e.getComponent()).setBorder(
+                            new LineBorder(Color.BLUE, 2));
+                    selected = true;
+                    // set currently selected square
+                    selectedSpace = (JPanel) e.getComponent();
+				}
+				else if(Board.getBoard().getTurn() == BLACK &&
+				Board.getBoard().getPiece(x, y).getColor() == BLACK) {
+					// set border to blue
+	                ((JPanel) e.getComponent()).setBorder(
+	                        new LineBorder(Color.BLUE, 2));
+	                selected = true;
+	                // set currently selected square
+	                selectedSpace = (JPanel) e.getComponent();
+				}
             }
         } else if (selected) {
             // calculate (x,y) location of previous selected square
@@ -419,5 +443,17 @@ ActionListener, MouseListener {
     public void mouseExited(final MouseEvent e) {
         // TODO Auto-generated method stub
     }
+    
+    private void resetBoard() {
+		ChessGUI gui = new ChessGUI();
+    	gui.pane.add(gui.board);
+		gui.add(gui.pane);
+		gui.setSize(1000, 1000);
+		gui.setTitle("The Game of Chess");
+		gui.getContentPane().setPreferredSize(new Dimension(600,600));
+		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gui.setVisible(true);
+		Board.getBoard().resetBoard();
+	}
 
 }
