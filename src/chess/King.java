@@ -36,9 +36,7 @@ public class King extends Movable implements Piece {
             int disY = Math.abs(y - getPosY());
 
             // king can move one space up, back, or diagonally
-            if ((disX == 1 && disY == 0)
-                    || (disX == 0 && disY == 1)
-                    || (disX == 1 && disY == 1)) {
+            if ((disX == 1 && disY == 0) || (disX == 0 && disY == 1) || (disX == 1 && disY == 1)) {
                 /*
                  * If selected location contains
                  * another piece in the same color,
@@ -53,10 +51,7 @@ public class King extends Movable implements Piece {
                  * If selected location contains a piece in the
                  * opposite color, then that piece is killed.
                  */
-                if (Board.getBoard().getColorAt(x, y)
-                        != getColor()
-                        && !Board.getBoard().
-                        isEmpty(x, y)) {
+                if (Board.getBoard().getColorAt(x, y) != getColor() && !Board.getBoard().isEmpty(x, y)) {
                     Board.getBoard().getPiece(x, y).kill();
                     Board.getBoard().togleTurn();
                     return true;
@@ -75,9 +70,7 @@ public class King extends Movable implements Piece {
      * @param y
      */
     public void move(final int x, final int y) {
-        Board.getBoard().setToEmpty(
-                this.getPosX(),
-                this.getPosY());
+        Board.getBoard().setToEmpty(this.getPosX(), this.getPosY());
         setPos(x, y);
         Board.getBoard().setPiece(this);
     }

@@ -28,11 +28,7 @@ public class Rook extends Movable implements Piece {
 
         if (Board.getBoard().getTurn() == getColor()) {
 
-            /*
-             * Calculate the distances between
-             * selected destination
-             * and current position.
-             */
+             /* Calculate the distances between selected destination and current position. */
             int disX = (x - getPosX());
             int disY = (y - getPosY());
 
@@ -44,32 +40,28 @@ public class Rook extends Movable implements Piece {
             /* Move right across board. */
             if (disY == 0 && disX > 0) {
                 for (; i < x; ++i) {
-                    if (!board.isEmpty(i + 1, y)
-                            && i + 1 != x) {
+                    if (!board.isEmpty(i + 1, y) && i + 1 != x) {
                         return false;
                     }
                 }
             /* Move left across board. */
             } else if (disY == 0 && disX < 0) {
                 for (; i > x; --i) {
-                    if (!board.isEmpty(i - 1, y)
-                            && i - 1 != x) {
+                    if (!board.isEmpty(i - 1, y) && i - 1 != x) {
                         return false;
                     }
                 }
             /* Move down across board. */
             } else if (disX == 0 && disY > 0) {
                 for (; j < y; ++j) {
-                    if (!board.isEmpty(x, j + 1)
-                            && j + 1 != y) {
+                    if (!board.isEmpty(x, j + 1) && j + 1 != y) {
                         return false;
                     }
                 }
             /* Move up across board. */
             } else if (disX == 0 && disY < 0) {
                 for (; j > y; --j) {
-                    if (!board.isEmpty(x, j - 1)
-                            && j - 1 != y) {
+                    if (!board.isEmpty(x, j - 1) && j - 1 != y) {
                         return false;
                     }
                 }
@@ -92,8 +84,7 @@ public class Rook extends Movable implements Piece {
                 System.out.println("rook attach");
                 board.togleTurn();
                 return true;
-            } else if (Board.getBoard().isEmpty(x, y)
-                    && (disX == 0 || disY == 0)) {
+            } else if (Board.getBoard().isEmpty(x, y) && (disX == 0 || disY == 0)) {
                 board.togleTurn();
                 return true;
             }

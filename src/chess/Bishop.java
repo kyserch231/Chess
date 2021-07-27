@@ -46,36 +46,28 @@ public class Bishop extends Movable implements Piece {
                 if (disX > 0 && disY > 0) {
                     // if selected square is to bottom right
                     for (; i < x; ++i, ++j) {
-                        if (!board.isEmpty(i + 1, j + 1)
-                                && i + 1 != x
-                                && j + 1 != y) {
+                        if (!board.isEmpty(i + 1, j + 1) && i + 1 != x && j + 1 != y) {
                             return false;
                         }
                     }
                 } else if (disX < 0 && disY > 0) {
                     // if selected square is to bottom left
                     for (; i > x; --i, ++j) {
-                        if (!board.isEmpty(i - 1, j + 1)
-                                && i - 1 != x
-                                && j + 1 != y) {
+                        if (!board.isEmpty(i - 1, j + 1) && i - 1 != x && j + 1 != y) {
                             return false;
                         }
                     }
                 } else if (disX > 0 && disY < 0) {
                     // if selected square is to top right
                     for (; i < x; ++i, --j) {
-                        if (!board.isEmpty(i + 1, j - 1)
-                                && i + 1 != x
-                                && j - 1 != y) {
+                        if (!board.isEmpty(i + 1, j - 1) && i + 1 != x && j - 1 != y) {
                             return false;
                         }
                     }
                 } else if (disX < 0 && disY < 0) {
                     // if selected square is to top left
                     for (; i > x; --i, --j) {
-                        if (!board.isEmpty(i - 1, j - 1)
-                                && i - 1 != x
-                                && j - 1 != y) {
+                        if (!board.isEmpty(i - 1, j - 1) && i - 1 != x && j - 1 != y) {
                             return false;
                         }
                     }
@@ -93,8 +85,7 @@ public class Bishop extends Movable implements Piece {
                  * If selected location contains a piece in the
                  * opposite color, then that piece is killed.
                  */
-                if (board.getColorAt(x, y) != getColor()
-                        && !board.isEmpty(x, y)) {
+                if (board.getColorAt(x, y) != getColor() && !board.isEmpty(x, y)) {
                     board.getPiece(x, y).kill();
                     System.out.println("bishop attach");
                     board.togleTurn();
@@ -114,9 +105,7 @@ public class Bishop extends Movable implements Piece {
      * @param y
      */
     public void move(final int x, final int y) {
-        Board.getBoard().setToEmpty(
-                getPosX(),
-                getPosY());
+        Board.getBoard().setToEmpty(getPosX(), getPosY());
         setPos(x, y);
         Board.getBoard().setPiece(this);
     }

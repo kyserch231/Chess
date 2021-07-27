@@ -4,6 +4,19 @@ import static chess.Constants.BLACK;
 import static chess.Constants.WHITE;
 import static chess.Constants.ROWS;
 import static chess.Constants.COLS;
+import static chess.Constants.COL_0;
+import static chess.Constants.COL_1;
+import static chess.Constants.COL_2;
+import static chess.Constants.COL_3;
+import static chess.Constants.COL_4;
+import static chess.Constants.COL_5;
+import static chess.Constants.COL_6;
+import static chess.Constants.COL_7;
+import static chess.Constants.ROW_0;
+import static chess.Constants.ROW_1;
+import static chess.Constants.ROW_6;
+import static chess.Constants.ROW_7;
+
 
 import java.util.ArrayList;
 
@@ -38,7 +51,7 @@ import java.util.ArrayList;
 public class Board {
 
     /** Create and empty game board. */
-    static Board gameBoard = null;
+    private static Board gameBoard = null;
 
     /** White player gets first move. */
     private int turn = WHITE;
@@ -77,41 +90,38 @@ public class Board {
         whitePieces = new ArrayList<Piece>();
         blackPieces = new ArrayList<Piece>();
 
-        int position = 0;
-        blackPieces.add(new Rook(position++, 0, BLACK));
-        blackPieces.add(new Knight(position++, 0, BLACK));
-        blackPieces.add(new Bishop(position++, 0, BLACK));
-        blackPieces.add(new King(position++, 0, BLACK));
-        blackPieces.add(new Queen(position++, 0, BLACK));
-        blackPieces.add(new Bishop(position++, 0, BLACK));
-        blackPieces.add(new Knight(position++, 0, BLACK));
-        blackPieces.add(new Rook(position++, 0, BLACK));
+        blackPieces.add(new Rook(COL_0, ROW_0, BLACK));
+        blackPieces.add(new Knight(COL_1, ROW_0, BLACK));
+        blackPieces.add(new Bishop(COL_2, ROW_0, BLACK));
+        blackPieces.add(new King(COL_3, ROW_0, BLACK));
+        blackPieces.add(new Queen(COL_4, ROW_0, BLACK));
+        blackPieces.add(new Bishop(COL_5, ROW_0, BLACK));
+        blackPieces.add(new Knight(COL_6, ROW_0, BLACK));
+        blackPieces.add(new Rook(COL_7, ROW_0, BLACK));
 
-        for (int i = 0; i < position; i++) {
-            blackPieces.add(new Pawn(i, 1, BLACK));
+        for (int i = 0; i < COLS; i++) {
+            blackPieces.add(new Pawn(i, ROW_1, BLACK));
         }
-        position = 0;
-        whitePieces.add(new Rook(position++, ROWS - 1, WHITE));
-        whitePieces.add(new Knight(position++, ROWS - 1, WHITE));
-        whitePieces.add(new Bishop(position++, ROWS - 1, WHITE));
-        whitePieces.add(new King(position++, ROWS - 1, WHITE));
-        whitePieces.add(new Queen(position++, ROWS - 1, WHITE));
-        whitePieces.add(new Bishop(position++, ROWS - 1, WHITE));
-        whitePieces.add(new Knight(position++, ROWS - 1, WHITE));
-        whitePieces.add(new Rook(position++, ROWS - 1, WHITE));
 
-        for (int i = 0; i < position; i++) {
-            whitePieces.add(new Pawn(i, ROWS - 2, WHITE));
+        whitePieces.add(new Rook(COL_0, ROW_7, WHITE));
+        whitePieces.add(new Knight(COL_1, ROW_7, WHITE));
+        whitePieces.add(new Bishop(COL_2, ROW_7, WHITE));
+        whitePieces.add(new King(COL_3, ROW_7, WHITE));
+        whitePieces.add(new Queen(COL_4, ROW_7, WHITE));
+        whitePieces.add(new Bishop(COL_5, ROW_7, WHITE));
+        whitePieces.add(new Knight(COL_6, ROW_7, WHITE));
+        whitePieces.add(new Rook(COL_7, ROW_7, WHITE));
+
+        for (int i = 0; i < COLS; i++) {
+            whitePieces.add(new Pawn(i, ROW_6, WHITE));
         }
 
         chessBoard = new Piece[ROWS + 1][COLS + 1];
         for (Piece b: blackPieces) {
-            chessBoard[b.getLoc().getPosX()]
-                    [b.getLoc().getPosY()] = b;
+            chessBoard[b.getLoc().getPosX()][b.getLoc().getPosY()] = b;
         }
         for (Piece w: whitePieces) {
-            chessBoard[w.getLoc().getPosX()]
-                    [w.getLoc().getPosY()] = w;
+            chessBoard[w.getLoc().getPosX()][w.getLoc().getPosY()] = w;
         }
     }
 
