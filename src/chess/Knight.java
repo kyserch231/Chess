@@ -26,7 +26,7 @@ public class Knight extends Movable implements Piece {
      */
     public boolean isValidMove(final int x, final int y) {
 
-        if (Board.getBoard().getTurn() == getColor()) {
+        if (this.isActive()) {
 
             /*
              * Calculate the distances between
@@ -38,11 +38,9 @@ public class Knight extends Movable implements Piece {
 
             if ((disX == 1 && disY == 2) || (disX == 2 && disY == 1)) {
                 if (Board.getBoard().isEmpty(x, y)) {
-                    Board.getBoard().togleTurn();
                     return true;
                 } else if (!Board.getBoard().isEmpty(x, y) && Board.getBoard().getColorAt(x, y) != getColor()) {
                     //Board.getBoard().getPiece(x, y).kill();
-                    Board.getBoard().togleTurn();
                     return true;
                 }
             }
@@ -79,4 +77,18 @@ public class Knight extends Movable implements Piece {
     public void capture() {
         setState(INACTIVE);
     }
+    
+    /**
+     * @param x location of opposite king
+     * @param y location of opposite king
+     * @return true if the piece has check on the opposite king
+     */
+	public boolean hasCheck(int x, int y) {
+		if (getState() == INACTIVE) {
+			return false;
+		} else if (this.isValidMove(x, y)) {
+			return true;
+		}
+		return false;
+	}
 }

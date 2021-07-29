@@ -69,10 +69,10 @@ public class Board {
     private Piece[][] chessBoard;
 
     /** Array that contains all white pieces. */
-    private ArrayList<Piece> whitePieces;
+    private static ArrayList<Piece> whitePieces;
 
     /** Array that contains all black pieces. */
-    private ArrayList<Piece> blackPieces;
+    private static ArrayList<Piece> blackPieces;
 
     /**
      * Initializes board and pieces.
@@ -197,6 +197,68 @@ public class Board {
             turn = WHITE;
         }
     }
+
+   /**
+    * @param color of king to check
+    * @return true if a piece has an opposite king in check
+    */
+	public static boolean isCheck(int color){
+		
+		if(color == BLACK){
+			
+			int xBlack = getBlackX();
+			int yBlack = getBlackY();
+			System.out.println("xBlack = " + xBlack + " , yBlack = " + yBlack);
+			
+			for (int i = 0; i < whitePieces.size(); i++) {
+				if (whitePieces.get(i).hasCheck(xBlack, yBlack)) {
+							return true;
+				}
+			}
+			return false;
+		}else {
+			
+			int xWhite = getWhiteX();
+			int yWhite = getWhiteY();
+			System.out.println("xWhite = " + xWhite + " , yWhite = " + yWhite);
+			
+			for (int i = 0; i < blackPieces.size(); i++) {
+				if (blackPieces.get(i).hasCheck(xWhite, yWhite)) {
+						return true;
+				}
+			}
+			return false;			
+		}
+		
+	}
+
+	/**
+	 * @return x location of black king
+	 */
+	public static int getBlackX() {
+		return blackPieces.get(3).getLoc().getPosX();
+	}
+	
+	/**
+	 * @return Y location of black king
+	 */
+	public static int getBlackY() {
+		return blackPieces.get(3).getLoc().getPosY();
+	}
+	
+	/**
+	 * @return x location of black king
+	 */
+	public static int getWhiteX() {
+		return whitePieces.get(3).getLoc().getPosX();
+	}
+	
+	/**
+	 * @return Y location of black king
+	 */
+	public static int getWhiteY() {
+		return whitePieces.get(3).getLoc().getPosY();
+	}
 
     /**
      * Resets board to starting position.

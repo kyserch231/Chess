@@ -26,7 +26,7 @@ public class Rook extends Movable implements Piece {
      */
     public boolean isValidMove(final int x, final int y) {
 
-        if (Board.getBoard().getTurn() == getColor()) {
+        if (this.isActive()) {
 
              /* Calculate the distances between selected destination and current position. */
             int disX = (x - getPosX());
@@ -81,10 +81,8 @@ public class Rook extends Movable implements Piece {
             if (board.getColorAt(x, y) != getColor() && !board.isEmpty(x, y) && (disX == 0 || disY == 0)) {
                 //board.getPiece(x, y).kill();
                 System.out.println("rook attach");
-                board.togleTurn();
                 return true;
             } else if (Board.getBoard().isEmpty(x, y) && (disX == 0 || disY == 0)) {
-                board.togleTurn();
                 return true;
             }
         }
@@ -121,4 +119,18 @@ public class Rook extends Movable implements Piece {
     public void capture() {
         setState(INACTIVE);
     }
+    
+    /**
+     * @param x location of opposite king
+     * @param y location of opposite king
+     * @return true if the piece has check on the opposite king
+     */
+	public boolean hasCheck(int x, int y) {
+		if (getState() == INACTIVE) {
+			return false;
+		} else if (this.isValidMove(x, y)) {
+			return true;
+		}
+		return false;
+	}
 }

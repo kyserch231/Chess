@@ -26,7 +26,7 @@ public class King extends Movable implements Piece {
      */
     public boolean isValidMove(final int x, final int y) {
 
-        if (Board.getBoard().getTurn() == getColor()) {
+        if (this.isActive()) {
             /*
              * Calculate the distances
              * between selected destination
@@ -43,8 +43,7 @@ public class King extends Movable implements Piece {
                  * move is invalid.
                  */
                 if (Board.getBoard().
-                        getColorAt(x, y)
-                        == getColor()) {
+                        getColorAt(x, y) == getColor()) {
                     return false;
                 }
                 /*
@@ -53,10 +52,8 @@ public class King extends Movable implements Piece {
                  */
                 if (Board.getBoard().getColorAt(x, y) != getColor() && !Board.getBoard().isEmpty(x, y)) {
                     //Board.getBoard().getPiece(x, y).kill();
-                    Board.getBoard().togleTurn();
                     return true;
                 } else if (Board.getBoard().isEmpty(x, y)) {
-                    Board.getBoard().togleTurn();
                     return true;
                 }
             }
@@ -94,4 +91,18 @@ public class King extends Movable implements Piece {
         // pop up of who won
         setState(INACTIVE);
     }
+    
+    /**
+     * @param x location of opposite king
+     * @param y location of opposite king
+     * @return true if the piece has check on the opposite king
+     */
+	public boolean hasCheck(int x, int y) {
+		if (getState() == INACTIVE) {
+			return false;
+		} else if (this.isValidMove(x, y)) {
+			return true;
+		}
+		return false;
+	}
 }

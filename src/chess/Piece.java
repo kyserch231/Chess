@@ -39,6 +39,18 @@ public interface Piece {
      * @return color of piece
      */
     int getColor();
+    
+    /**
+     * @return true is piece is active
+     */
+    boolean isActive();
+    
+    /**
+     * @param x location of opposite king
+     * @param y location of opposite king
+     * @return true if the piece has check on the opposite king
+     */
+    boolean hasCheck(int x, int y);
 }
 
 

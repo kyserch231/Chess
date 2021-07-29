@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -130,6 +131,11 @@ ActionListener, MouseListener {
      */
     private boolean selected = false;
 
+    /** Component of black king. */
+    private Component Bking;
+    
+    /** Component number of white king. */
+    private Component Wking;
     /**
      * @param args
      */
@@ -182,6 +188,7 @@ ActionListener, MouseListener {
         ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("bishopB.png")));
         ((JPanel) board.getComponent(++next)).remove(0);
         ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("kingB.png")));
+        Bking = board.getComponent(next);
         ((JPanel) board.getComponent(++next)).remove(0);
         ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("queenB.png")));
         ((JPanel) board.getComponent(++next)).remove(0);
@@ -206,6 +213,7 @@ ActionListener, MouseListener {
         ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("queenW.png")));
         ((JPanel) board.getComponent(--next)).remove(0);
         ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("kingW.png")));
+        Wking = board.getComponent(next);
         ((JPanel) board.getComponent(--next)).remove(0);
         ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("bishopW.png")));
         ((JPanel) board.getComponent(--next)).remove(0);
@@ -248,20 +256,16 @@ ActionListener, MouseListener {
     
     private void setupJails() {
 
-
         for (int i = 0; i < ROWS * 2; i++) {
             JPanel label = new JPanel(new GridLayout(1, 1));
             label.add(new JLabel(new ImageIcon()));
-            label.setBackground(Color.lightGray);
-            label.addMouseListener(this);
-            label.setSize(1, 1);
+            //label.addMouseListener(this);
             wJail.add(label, i);
         }
         for (int i = 0; i < ROWS * 2; i++) {
             JPanel label = new JPanel(new GridLayout(1, 1));
             label.add(new JLabel(new ImageIcon()));
-            label.setBackground(Color.lightGray);
-            label.addMouseListener(this);
+            //label.addMouseListener(this);
             bJail.add(label, i);
         }
     }
@@ -352,12 +356,13 @@ ActionListener, MouseListener {
                 ((JPanel) e.getComponent()).setBorder(new LineBorder(null));
                 selectedSpace.setBorder(new LineBorder(null));
 
-            } else if (Board.getBoard().getPiece(xSel, ySel).isValidMove(x, y)) {
+            } else if (Board.getBoard().getPiece(xSel, ySel).isValidMove(x, y) && Board.getBoard().getPiece(xSel, ySel).getColor() == Board.getBoard().getTurn()) {
 
                 /* if the move is valid, highlight space, move piece and move GUI label */
                 moveLabel(selectedSpace, (JPanel) e.getComponent());
                 ((JPanel) e.getComponent()).setBorder(new LineBorder(Color.RED, 2));
                 Piece captured = Board.getBoard().getPiece(xSel, ySel).move(x, y);
+                Board.getBoard().togleTurn();
 
                 if (captured != null) {
                     moveToJail(captured);
@@ -366,6 +371,7 @@ ActionListener, MouseListener {
                 selected = false;
                 ((JPanel) e.getComponent()).setBorder(new LineBorder(null));
                 selectedSpace.setBorder(new LineBorder(null));
+                kingCheck();
             }
         }
     }
@@ -400,6 +406,7 @@ ActionListener, MouseListener {
                 moveTo.add(new JLabel(new ImageIcon("queenB.png")));
             } else if (getBoard.getPiece(x, y) instanceof King) {
                 moveTo.add(new JLabel(new ImageIcon("kingB.png")));
+                Bking = moveTo;
             } else if (getBoard.getPiece(x, y) instanceof Knight) {
                 moveTo.add(new JLabel(new ImageIcon("horseB.png")));
             } else if (getBoard.getPiece(x, y) instanceof Bishop) {
@@ -415,13 +422,14 @@ ActionListener, MouseListener {
                 moveTo.add(new JLabel(new ImageIcon("queenW.png")));
             } else if (getBoard.getPiece(x, y) instanceof King) {
                 moveTo.add(new JLabel(new ImageIcon("kingW.png")));
+                Wking = moveTo;
             } else if (getBoard.getPiece(x, y) instanceof Knight) {
                 moveTo.add(new JLabel(new ImageIcon("horseW.png")));
             } else if (getBoard.getPiece(x, y) instanceof Bishop) {
                 moveTo.add(new JLabel(new ImageIcon("bishopW.png")));
             }
         }
-
+        kingCheck();
         board.revalidate();
         board.repaint();
         pane.revalidate();
@@ -484,6 +492,38 @@ ActionListener, MouseListener {
         pane.repaint();
     }
 
+    public void kingCheck() {
+
+    	int a = 1;
+        int b = 0;
+
+        for (int i = 0; i < BOARD_SIZE; i++) {
+
+            if (i % 2 == a) {
+                board.getComponent(i).setBackground(Color.darkGray);
+            }
+            if (i % 2 == b) {
+            	board.getComponent(i).setBackground(Color.white);
+            }
+            if (i % COLS == COLS - 1) {
+                int temp = a;
+                a = b;
+                b = temp;
+            }
+        }
+    
+    	if (Board.isCheck(BLACK)) {
+    		Bking.setBackground(Color.red);
+    	}
+    	if (Board.isCheck(WHITE)) {
+    		Wking.setBackground(Color.red);
+    	}
+        board.revalidate();
+        board.repaint();
+        pane.revalidate();
+        pane.repaint();
+    }
+    
     @Override
     public void mouseReleased(final MouseEvent e) {
         // TODO Auto-generated method stub

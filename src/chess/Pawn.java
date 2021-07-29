@@ -43,7 +43,7 @@ public class Pawn extends Movable implements Piece {
 
         Board board = Board.getBoard();
 
-        if (board.getTurn() == getColor()) {
+        if (this.isActive()) {
 
             /*
              * Pawn can move two spaces up on first move,
@@ -53,28 +53,21 @@ public class Pawn extends Movable implements Piece {
             if (getColor() == BLACK) {
                 if (board.isEmpty(x, y) && disX == 0) {
                     if (hasMoved && disY == 1) {
-                        board.togleTurn();
                         return true;
                     } else if (!hasMoved && disY == 2 || disY == 1) {
-                        board.togleTurn();
                         return true;
                     }
                 } else if (disY == 1 && Math.abs(disX) == 1 && board.getColorAt(x, y) != getColor() && !board.isEmpty(x, y)) {
-                    //board.getPiece(x, y).kill();
-                    board.togleTurn();
                     return true;
                 }
             } else if (getColor() == WHITE) {
                 if (board.isEmpty(x, y) && disX == 0) {
                     if (hasMoved && disY == -1) {
-                        board.togleTurn();
                         return true;
                     } else if (!hasMoved && disY == 2 * -1 || disY == -1) {
-                        board.togleTurn();
                         return true;
                     }
                 } else if (disY == -1 && Math.abs(disX) == 1 && board.getColorAt(x, y) != getColor() && !board.isEmpty(x, y)) {
-                    board.togleTurn();
                     return true;
                 }
             }
@@ -112,4 +105,18 @@ public class Pawn extends Movable implements Piece {
     public void capture() {
         setState(INACTIVE);
     }
+    
+    /**
+     * @param x location of opposite king
+     * @param y location of opposite king
+     * @return true if the piece has check on the opposite king
+     */
+	public boolean hasCheck(int x, int y) {
+		if (getState() == INACTIVE) {
+			return false;
+		} else if (this.isValidMove(x, y)) {
+			return true;
+		}
+		return false;
+	}
 }

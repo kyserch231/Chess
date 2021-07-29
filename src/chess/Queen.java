@@ -26,7 +26,7 @@ public class Queen extends Movable implements Piece {
      * @return true is move is valid and false if it is not
      */
     public boolean isValidMove(final int x, final int y) {
-        if (Board.getBoard().getTurn() == getColor()) {
+        if (this.isActive()) {
 
             /*
              * Calculate the distances between
@@ -122,12 +122,9 @@ public class Queen extends Movable implements Piece {
              * in the opposite color, then that piece is killed.
              */
             if (board.getColorAt(x, y) != getColor() && !board.isEmpty(x, y) && ((Math.abs(disY) == Math.abs(disX)) || disX == 0 || disY == 0)) {
-                //board.getPiece(x, y).kill();
                 System.out.println("queen attach");
-                board.togleTurn();
                 return true;
             } else if (Board.getBoard().isEmpty(x, y) && ((Math.abs(disY) == Math.abs(disX)) || disX == 0 || disY == 0)) {
-                board.togleTurn();
                 return true;
             }
         }
@@ -164,4 +161,18 @@ public class Queen extends Movable implements Piece {
     public void capture() {
         setState(INACTIVE);
     }
+    
+    /**
+     * @param x location of opposite king
+     * @param y location of opposite king
+     * @return true if the piece has check on the opposite king
+     */
+	public boolean hasCheck(int x, int y) {
+		if (getState() == INACTIVE) {
+			return false;
+		} else if (this.isValidMove(x, y)) {
+			return true;
+		}
+		return false;
+	}
 }
