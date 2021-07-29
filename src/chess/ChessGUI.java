@@ -103,6 +103,18 @@ ActionListener, MouseListener {
     /** Menu item to view the rules of the game. */
     private JMenuItem rulesItem;
 
+    /** Panel to hold the white captured pieces. */
+    private JPanel wJail = new JPanel(new GridLayout(ROWS, 2));
+
+    /** Panel to hold the black captured pieces. */
+    private JPanel bJail = new JPanel(new GridLayout(ROWS, 2));
+    
+    /** Count of white captured pieces. */
+    private int wJailCount = 0;
+    
+    /** Count of black captured pieces. */
+    private int bJailCount = 0;
+
     /** Panel to hold the items displayed on the screen. */
     private JPanel pane = new JPanel(new GridBagLayout());
 
@@ -123,7 +135,9 @@ ActionListener, MouseListener {
      */
     public static void main(final String[] args) {
         ChessGUI gui = new ChessGUI();
+        gui.pane.add(gui.wJail);
         gui.pane.add(gui.board);
+        gui.pane.add(gui.bJail);
         gui.add(gui.pane);
         gui.setSize(GUI_SIZE, GUI_SIZE);
         gui.setTitle("The Game of Chess");
@@ -202,6 +216,7 @@ ActionListener, MouseListener {
             ((JPanel) board.getComponent(next)).remove(0);
             ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("pawnW.png")));
         }
+        setupJails();
         setupMenus();
     }
 
@@ -229,6 +244,26 @@ ActionListener, MouseListener {
         menus = new JMenuBar();
         menus.add(fileMenu);
         setJMenuBar(menus);
+    }
+    
+    private void setupJails() {
+
+
+        for (int i = 0; i < ROWS * 2; i++) {
+            JPanel label = new JPanel(new GridLayout(1, 1));
+            label.add(new JLabel(new ImageIcon()));
+            label.setBackground(Color.lightGray);
+            label.addMouseListener(this);
+            label.setSize(1, 1);
+            wJail.add(label, i);
+        }
+        for (int i = 0; i < ROWS * 2; i++) {
+            JPanel label = new JPanel(new GridLayout(1, 1));
+            label.add(new JLabel(new ImageIcon()));
+            label.setBackground(Color.lightGray);
+            label.addMouseListener(this);
+            bJail.add(label, i);
+        }
     }
 
     /**
@@ -282,15 +317,18 @@ ActionListener, MouseListener {
         if (!selected) {
             if (!Board.getBoard().isEmpty(x, y)) {
                 if (Board.getBoard().getTurn() == WHITE && Board.getBoard().getPiece(x, y).getColor() == WHITE) {
+
                     // set border to blue
                     ((JPanel) e.getComponent()).setBorder(new LineBorder(Color.BLUE, 2));
                     selected = true;
+
                     // set currently selected square
                     selectedSpace = (JPanel) e.getComponent();
                 } else if (Board.getBoard().getTurn() == BLACK && Board.getBoard().getPiece(x, y).getColor() == BLACK) {
                     // set border to blue
                     ((JPanel) e.getComponent()).setBorder(new LineBorder(Color.BLUE, 2));
                     selected = true;
+
                     // set currently selected square
                     selectedSpace = (JPanel) e.getComponent();
                 }
@@ -314,16 +352,16 @@ ActionListener, MouseListener {
                 ((JPanel) e.getComponent()).setBorder(new LineBorder(null));
                 selectedSpace.setBorder(new LineBorder(null));
 
-            } else if (Board.getBoard().getPiece(xSel, ySel).
-                    isValidMove(x, y)) {
-                /*
-                 * if the move is valid,highlight
-                 * space, move piece and move GUI label
-                 */
-                moveLabel(selectedSpace,
-                        (JPanel) e.getComponent());
+            } else if (Board.getBoard().getPiece(xSel, ySel).isValidMove(x, y)) {
+
+                /* if the move is valid, highlight space, move piece and move GUI label */
+                moveLabel(selectedSpace, (JPanel) e.getComponent());
                 ((JPanel) e.getComponent()).setBorder(new LineBorder(Color.RED, 2));
-                Board.getBoard().getPiece(xSel, ySel).move(x, y);
+                Piece captured = Board.getBoard().getPiece(xSel, ySel).move(x, y);
+
+                if (captured != null) {
+                    moveToJail(captured);
+                }
 
                 selected = false;
                 ((JPanel) e.getComponent()).setBorder(new LineBorder(null));
@@ -386,6 +424,62 @@ ActionListener, MouseListener {
 
         board.revalidate();
         board.repaint();
+        pane.revalidate();
+        pane.repaint();
+    }
+    
+    /**
+     * Adds piece to jail.
+     * @param p
+     */
+    public void moveToJail(final Piece p) {
+        if (p.getColor() == BLACK) {
+            if (p instanceof Pawn) {
+                ((JPanel) bJail.getComponent(bJailCount)).remove(0);
+                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon("pawnB.png")));
+            } else if (p instanceof Rook) {
+                ((JPanel) bJail.getComponent(bJailCount)).remove(0);
+                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon("rookB.png")));
+            } else if (p instanceof Queen) {
+                ((JPanel) bJail.getComponent(bJailCount)).remove(0);
+                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon("Queen.png")));
+            } else if (p instanceof King) {
+                ((JPanel) bJail.getComponent(bJailCount)).remove(0);
+                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon("kingB.png")));
+            } else if (p instanceof Knight) {
+                ((JPanel) bJail.getComponent(bJailCount)).remove(0);
+                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon("horseB.png")));
+            } else if (p instanceof Bishop) {
+                ((JPanel) bJail.getComponent(bJailCount)).remove(0);
+                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon("bishopB.png")));
+            }
+            bJailCount++;
+            bJail.revalidate();
+            bJail.repaint();
+        } else if (p.getColor() == WHITE) {
+            if (p instanceof Pawn) {
+                ((JPanel) wJail.getComponent(wJailCount)).remove(0);
+                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon("pawnW.png")));
+            } else if (p instanceof Rook) {
+                ((JPanel) wJail.getComponent(wJailCount)).remove(0);
+                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon("rookW.png")));
+            } else if (p instanceof Queen) {
+                ((JPanel) wJail.getComponent(wJailCount)).remove(0);
+                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon("queenW.png")));
+            } else if (p instanceof King) {
+                ((JPanel) wJail.getComponent(wJailCount)).remove(0);
+                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon("kingW.png")));
+            } else if (p instanceof Knight) {
+                ((JPanel) wJail.getComponent(wJailCount)).remove(0);
+                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon("horseW.png")));
+            } else if (p instanceof Bishop) {
+                ((JPanel) wJail.getComponent(wJailCount)).remove(0);
+                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon("bishopW.png")));
+            }
+            wJailCount++;
+            wJail.revalidate();
+            wJail.repaint();
+        }
         pane.revalidate();
         pane.repaint();
     }

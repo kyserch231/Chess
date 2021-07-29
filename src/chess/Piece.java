@@ -11,17 +11,18 @@ public interface Piece {
     boolean isValidMove(int x, int y);
 
     /**
-     * Makes the move and returns true if success , otherwise false.
-     * @param xMove
-     * @param yMove
+     * Makes the move and a piece if one is being captured.
+     * @param x
+     * @param y
+     * @return captured that is being captured
      */
-    void move(int xMove, int yMove);
+    Piece move(int x, int y);
 
     /**
      * When a piece is killed by the opposite player,
      * the piece will become inactive.
      */
-    void kill();
+    void capture();
 
     /**
      * @return current location of piece

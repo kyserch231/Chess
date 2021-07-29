@@ -59,8 +59,8 @@ public class Pawn extends Movable implements Piece {
                         board.togleTurn();
                         return true;
                     }
-                } else if (disY == 1 && Math.abs(disX) == 1 && board.getColorAt(x, y) != getColor()) {
-                    board.getPiece(x, y).kill();
+                } else if (disY == 1 && Math.abs(disX) == 1 && board.getColorAt(x, y) != getColor() && !board.isEmpty(x, y)) {
+                    //board.getPiece(x, y).kill();
                     board.togleTurn();
                     return true;
                 }
@@ -73,8 +73,7 @@ public class Pawn extends Movable implements Piece {
                         board.togleTurn();
                         return true;
                     }
-                } else if (disY == -1 && Math.abs(disX) == 1 && board.getColorAt(x, y) != getColor()) {
-                    board.getPiece(x, y).kill();
+                } else if (disY == -1 && Math.abs(disX) == 1 && board.getColorAt(x, y) != getColor() && !board.isEmpty(x, y)) {
                     board.togleTurn();
                     return true;
                 }
@@ -84,22 +83,33 @@ public class Pawn extends Movable implements Piece {
     }
 
     /**
-     * Makes the move and returns true if success , otherwise false.
+     * Makes the move and a piece if one is being captured.
      * @param x
      * @param y
+     * @return captured that is being captured
      */
-    public void move(final int x, final int y) {
+    public Piece move(final int x, final int y) {
+
+        Piece captured = null;
+
+        if (!Board.getBoard().isEmpty(x, y)) {
+            captured = Board.getBoard().getPiece(x, y);
+            Board.getBoard().getPiece(x, y).capture();
+        }
+
         Board.getBoard().setToEmpty(this.getPosX(), this.getPosY());
         setPos(x, y);
         Board.getBoard().setPiece(this);
         hasMoved = true;
+
+        return captured;
     }
 
     /**
      * When a piece is killed by the opposite player,
      * the piece will become inactive.
      */
-    public void kill() {
+    public void capture() {
         setState(INACTIVE);
     }
 }

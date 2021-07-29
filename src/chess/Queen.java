@@ -122,13 +122,11 @@ public class Queen extends Movable implements Piece {
              * in the opposite color, then that piece is killed.
              */
             if (board.getColorAt(x, y) != getColor() && !board.isEmpty(x, y) && ((Math.abs(disY) == Math.abs(disX)) || disX == 0 || disY == 0)) {
-                board.getPiece(x, y).kill();
+                //board.getPiece(x, y).kill();
                 System.out.println("queen attach");
                 board.togleTurn();
                 return true;
-            } else if (Board.getBoard().isEmpty(x, y)
-                    && ((Math.abs(disY) == Math.abs(disX))
-                    || disX == 0 || disY == 0)) {
+            } else if (Board.getBoard().isEmpty(x, y) && ((Math.abs(disY) == Math.abs(disX)) || disX == 0 || disY == 0)) {
                 board.togleTurn();
                 return true;
             }
@@ -137,16 +135,25 @@ public class Queen extends Movable implements Piece {
     }
 
     /**
-     * Makes the move and returns true if success , otherwise false.
+     * Makes the move and a piece if one is being captured.
      * @param x
      * @param y
+     * @return captured that is being captured
      */
-    public void move(final int x, final int y) {
-        Board.getBoard().setToEmpty(
-                this.getPosX(),
-                this.getPosY());
+    public Piece move(final int x, final int y) {
+
+        Piece captured = null;
+
+        if (!Board.getBoard().isEmpty(x, y)) {
+            captured = Board.getBoard().getPiece(x, y);
+            Board.getBoard().getPiece(x, y).capture();
+        }
+
+        Board.getBoard().setToEmpty(this.getPosX(), this.getPosY());
         setPos(x, y);
         Board.getBoard().setPiece(this);
+
+        return captured;
     }
 
 
@@ -154,7 +161,7 @@ public class Queen extends Movable implements Piece {
      * When a piece is killed by the opposite player,
      * the piece will become inactive.
      */
-    public void kill() {
+    public void capture() {
         setState(INACTIVE);
     }
 }
