@@ -55,15 +55,11 @@ public class Pawn extends Movable implements Piece {
                     if (hasMoved && disY == 1) {
                         board.togleTurn();
                         return true;
-                    } else if (!hasMoved
-                        && disY == 2 || disY == 1) {
+                    } else if (!hasMoved && disY == 2 || disY == 1) {
                         board.togleTurn();
                         return true;
                     }
-                } else if (disY == 1
-                        && Math.abs(disX) == 1
-                        && board.getColorAt(x, y)
-                        != getColor()) {
+                } else if (disY == 1 && Math.abs(disX) == 1 && board.getColorAt(x, y) != getColor()) {
                     board.getPiece(x, y).kill();
                     board.togleTurn();
                     return true;
@@ -73,16 +69,11 @@ public class Pawn extends Movable implements Piece {
                     if (hasMoved && disY == -1) {
                         board.togleTurn();
                         return true;
-                    } else if (!hasMoved
-                        && disY == 2 * -1
-                        || disY == -1) {
+                    } else if (!hasMoved && disY == 2 * -1 || disY == -1) {
                         board.togleTurn();
                         return true;
                     }
-                } else if (disY == -1
-                        && Math.abs(disX) == 1
-                        && board.getColorAt(x, y)
-                        != getColor()) {
+                } else if (disY == -1 && Math.abs(disX) == 1 && board.getColorAt(x, y) != getColor()) {
                     board.getPiece(x, y).kill();
                     board.togleTurn();
                     return true;
@@ -98,9 +89,7 @@ public class Pawn extends Movable implements Piece {
      * @param y
      */
     public void move(final int x, final int y) {
-        Board.getBoard().setToEmpty(
-                this.getPosX(),
-                this.getPosY());
+        Board.getBoard().setToEmpty(this.getPosX(), this.getPosY());
         setPos(x, y);
         Board.getBoard().setPiece(this);
         hasMoved = true;

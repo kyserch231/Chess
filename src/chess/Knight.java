@@ -36,16 +36,11 @@ public class Knight extends Movable implements Piece {
             int disX = Math.abs(x - getPosX());
             int disY = Math.abs(y - getPosY());
 
-            if ((disX == 1 && disY == 2)
-                    || (disX == 2 && disY == 1)) {
+            if ((disX == 1 && disY == 2) || (disX == 2 && disY == 1)) {
                 if (Board.getBoard().isEmpty(x, y)) {
                     Board.getBoard().togleTurn();
                     return true;
-                } else if (!Board.getBoard().isEmpty(x, y)
-                        && Board.getBoard().
-                        getColorAt(x, y)
-                        != getColor()) {
-
+                } else if (!Board.getBoard().isEmpty(x, y) && Board.getBoard().getColorAt(x, y) != getColor()) {
                     Board.getBoard().getPiece(x, y).kill();
                     Board.getBoard().togleTurn();
                     return true;
@@ -61,9 +56,7 @@ public class Knight extends Movable implements Piece {
      * @param y
      */
     public void move(final int x, final int y) {
-        Board.getBoard().setToEmpty(
-                this.getPosX(),
-                this.getPosY());
+        Board.getBoard().setToEmpty(this.getPosX(), this.getPosY());
         setPos(x, y);
         Board.getBoard().setPiece(this);
     }

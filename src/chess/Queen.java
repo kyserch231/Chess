@@ -46,36 +46,28 @@ public class Queen extends Movable implements Piece {
                 if (disX > 0 && disY > 0) {
                     // if selected square is to bottom right
                     for (; i < x; ++i, ++j) {
-                        if (!board.isEmpty(i + 1, j + 1)
-                                && i + 1 != x
-                                && j + 1 != y) {
+                        if (!board.isEmpty(i + 1, j + 1) && i + 1 != x && j + 1 != y) {
                             return false;
                         }
                     }
                 } else if (disX < 0 && disY > 0) {
                     // if selected square is to bottom left
                     for (; i > x; --i, ++j) {
-                        if (!board.isEmpty(i - 1, j + 1)
-                                && i - 1 != x
-                                && j + 1 != y) {
+                        if (!board.isEmpty(i - 1, j + 1) && i - 1 != x && j + 1 != y) {
                             return false;
                         }
                     }
                 } else if (disX > 0 && disY < 0) {
                     // if selected square is to top right
                     for (; i < x; ++i, --j) {
-                        if (!board.isEmpty(i + 1, j - 1)
-                                && i + 1 != x
-                                && j - 1 != y) {
+                        if (!board.isEmpty(i + 1, j - 1) && i + 1 != x && j - 1 != y) {
                             return false;
                         }
                     }
                 } else if (disX < 0 && disY < 0) {
                     // if selected square is to top left
                     for (; i > x; --i, --j) {
-                        if (!board.isEmpty(i - 1, j - 1)
-                                && i - 1 != x
-                                && j - 1 != y) {
+                        if (!board.isEmpty(i - 1, j - 1) && i - 1 != x && j - 1 != y) {
                             return false;
                         }
                     }
@@ -90,32 +82,28 @@ public class Queen extends Movable implements Piece {
             /* Move right across board. */
             if (disY == 0 && disX > 0) {
                 for (; i < x; ++i) {
-                    if (!board.isEmpty(i + 1, y)
-                            && i + 1 != x) {
+                    if (!board.isEmpty(i + 1, y) && i + 1 != x) {
                         return false;
                     }
                 }
             /* Move left across board. */
             } else if (disY == 0 && disX < 0) {
                 for (; i > x; --i) {
-                    if (!board.isEmpty(i - 1, y)
-                            && i - 1 != x) {
+                    if (!board.isEmpty(i - 1, y) && i - 1 != x) {
                         return false;
                     }
                 }
             /* Move down across board. */
             } else if (disX == 0 && disY > 0) {
                 for (; j < y; ++j) {
-                    if (!board.isEmpty(x, j + 1)
-                            && j + 1 != y) {
+                    if (!board.isEmpty(x, j + 1) && j + 1 != y) {
                         return false;
                     }
                 }
             /* Move up across board. */
             } else if (disX == 0 && disY < 0) {
                 for (; j > y; --j) {
-                    if (!board.isEmpty(x, j - 1)
-                            && j - 1 != y) {
+                    if (!board.isEmpty(x, j - 1) && j - 1 != y) {
                         return false;
                     }
                 }
@@ -133,10 +121,7 @@ public class Queen extends Movable implements Piece {
              * If selected location contains a piece
              * in the opposite color, then that piece is killed.
              */
-            if (board.getColorAt(x, y) != getColor()
-                    && !board.isEmpty(x, y)
-                    && ((Math.abs(disY) == Math.abs(disX))
-                    || disX == 0 || disY == 0)) {
+            if (board.getColorAt(x, y) != getColor() && !board.isEmpty(x, y) && ((Math.abs(disY) == Math.abs(disX)) || disX == 0 || disY == 0)) {
                 board.getPiece(x, y).kill();
                 System.out.println("queen attach");
                 board.togleTurn();
