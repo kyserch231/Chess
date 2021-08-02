@@ -494,7 +494,7 @@ ActionListener, MouseListener {
 
     public void kingCheck() {
 
-    	int a = 1;
+        int a = 1;
         int b = 0;
 
         for (int i = 0; i < BOARD_SIZE; i++) {
@@ -503,7 +503,7 @@ ActionListener, MouseListener {
                 board.getComponent(i).setBackground(Color.darkGray);
             }
             if (i % 2 == b) {
-            	board.getComponent(i).setBackground(Color.white);
+                board.getComponent(i).setBackground(Color.white);
             }
             if (i % COLS == COLS - 1) {
                 int temp = a;
@@ -512,12 +512,12 @@ ActionListener, MouseListener {
             }
         }
     
-    	if (Board.isCheck(BLACK)) {
-    		Bking.setBackground(Color.red);
-    	}
-    	if (Board.isCheck(WHITE)) {
-    		Wking.setBackground(Color.red);
-    	}
+        if (Board.isCheck(BLACK)) {
+            Bking.setBackground(Color.red);
+        }
+        if (Board.isCheck(WHITE)) {
+            Wking.setBackground(Color.red);
+        }
         board.revalidate();
         board.repaint();
         pane.revalidate();
