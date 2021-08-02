@@ -1,7 +1,10 @@
 package chess;
 
 import static chess.Constants.ACTIVE;
+import static chess.Constants.BLACK;
 import static chess.Constants.INACTIVE;
+
+import java.util.ArrayList;
 
 public class King extends Movable implements Piece {
     /**
@@ -37,19 +40,17 @@ public class King extends Movable implements Piece {
 
             // king can move one space up, back, or diagonally
             if ((disX == 1 && disY == 0) || (disX == 0 && disY == 1) || (disX == 1 && disY == 1)) {
-                /*
-                 * If selected location contains
-                 * another piece in the same color,
-                 * move is invalid.
-                 */
-                if (Board.getBoard().
-                        getColorAt(x, y) == getColor()) {
+
+            	/* If selected location is checked by a piece in the opposite color, move is invalid. */
+            	if (moveIsChecked(x, y)) {
+            		return false;
+            	}
+            	
+                /* If selected location contains another piece in the same color, move is invalid. */
+                if (Board.getBoard().getColorAt(x, y) == getColor()) {
                     return false;
                 }
-                /*
-                 * If selected location contains a piece in the
-                 * opposite color, then that piece is killed.
-                 */
+                /* If selected location contains a piece in the opposite color, then that piece is killed. */
                 if (Board.getBoard().getColorAt(x, y) != getColor() && !Board.getBoard().isEmpty(x, y)) {
                     //Board.getBoard().getPiece(x, y).kill();
                     return true;
@@ -92,6 +93,34 @@ public class King extends Movable implements Piece {
         setState(INACTIVE);
     }
     
+    /**
+     * @param color of king to check
+     * @return true if a piece has an opposite king in check
+     */
+ 	public boolean moveIsChecked(int x, int y){
+ 		
+ 		if(this.getColor() == BLACK){
+
+ 			//System.out.println("xBlack = " + xBlack + " , yBlack = " + yBlack);
+ 			
+ 			for (int i = 0; i < Board.getWhitePieces().size(); i++) {
+ 				if (Board.getWhitePieces().get(i).hasCheck(x, y)) {
+ 							return true;
+ 				}
+ 			}
+ 			return false;
+ 		}else {
+ 			
+ 			//System.out.println("xWhite = " + xWhite + " , yWhite = " + yWhite);
+ 			
+ 			for (int i = 0; i < Board.getBlackPieces().size(); i++) {
+ 				if (Board.getBlackPieces().get(i).hasCheck(x, y)) {
+ 						return true;
+ 				}
+ 			}
+ 			return false;			
+ 		}
+ 	}
     /**
      * @param x location of opposite king
      * @param y location of opposite king

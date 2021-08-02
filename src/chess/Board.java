@@ -260,6 +260,20 @@ public class Board {
 		return whitePieces.get(3).getLoc().getPosY();
 	}
 
+	/**
+	 * @return ArrayList of white pieces
+	 */
+	public static ArrayList<Piece> getWhitePieces() {
+		return whitePieces;
+	}
+	
+	/**
+	 * @return ArrayList of black pieces
+	 */
+	public static ArrayList<Piece> getBlackPieces() {
+		return blackPieces;
+	}
+	
     /**
      * Resets board to starting position.
      */
