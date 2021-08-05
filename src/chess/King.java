@@ -4,8 +4,6 @@ import static chess.Constants.ACTIVE;
 import static chess.Constants.BLACK;
 import static chess.Constants.INACTIVE;
 
-import java.util.ArrayList;
-
 public class King extends Movable implements Piece {
     /**
      * Initializes a new piece by setting the position,

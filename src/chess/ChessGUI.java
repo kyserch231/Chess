@@ -7,9 +7,13 @@ import static chess.Constants.GUI_SIZE;
 import static chess.Constants.PANE_SIZE;
 import static chess.Constants.BOARD_SIZE;
 import static chess.Constants.ROWS;
+import static chess.Constants.ROW_7;
 import static chess.Constants.COLS;
+import static chess.Constants.COL_4;
 
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -22,6 +26,7 @@ import javax.swing.border.LineBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -91,6 +96,8 @@ ActionListener, MouseListener {
             + "diagonally in front of them) but cannot move to "
             + "these spaces if they are vacant. ";
 
+    private String pawnPro = "Select a new piece!";
+    
     /** Menu bar to hold fileMenu. */
     private JMenuBar menus;
 
@@ -98,7 +105,7 @@ ActionListener, MouseListener {
     private JMenu fileMenu;
 
     /** Menu item to quit the game. */
-    private JMenuItem quitItem;
+    private static JMenuItem quitItem;
 
     /** Menu item to restart the game. */
     private JMenuItem restartItem;
@@ -107,10 +114,10 @@ ActionListener, MouseListener {
     private JMenuItem rulesItem;
 
     /** Panel to hold the white captured pieces. */
-    private JPanel wJail = new JPanel(new GridLayout(ROWS, 2));
+    private static JPanel wJail = new JPanel(new GridLayout(ROWS, 2));
 
     /** Panel to hold the black captured pieces. */
-    private JPanel bJail = new JPanel(new GridLayout(ROWS, 2));
+    private static JPanel bJail = new JPanel(new GridLayout(ROWS, 2));
     
     /** Count of white captured pieces. */
     private int wJailCount = 0;
@@ -119,10 +126,10 @@ ActionListener, MouseListener {
     private int bJailCount = 0;
 
     /** Panel to hold the items displayed on the screen. */
-    private JPanel pane = new JPanel();
+    private static JPanel pane = new JPanel();
 
     /** Panel to hold the chess board. */
-    private JPanel board = new JPanel(new GridLayout(ROWS, COLS));
+    private static JPanel board = new JPanel(new GridLayout(ROWS, COLS));
 
     /** Panel to hold the currently selected space. */
     private JPanel selectedSpace;
@@ -138,21 +145,23 @@ ActionListener, MouseListener {
     
     /** Component number of white king. */
     private Component wKing;
+
     /**
      * @param args
      */
     public static void main(final String[] args) {
         ChessGUI gui = new ChessGUI();
-        gui.pane.add(gui.wJail);
-        
-        gui.pane.add(gui.board);
 
-        gui.pane.add(gui.bJail);
-        gui.add(gui.pane);
+    	pane.add(wJail);
+        
+        pane.add(board);
+
+        pane.add(bJail);
+        
+        gui.add(pane);
         gui.setSize(GUI_SIZE, GUI_SIZE);
         gui.setTitle("The Game of Chess");
         gui.getContentPane().setPreferredSize(new Dimension(PANE_SIZE, PANE_SIZE));
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.setVisible(true);
     }
 
@@ -261,15 +270,13 @@ ActionListener, MouseListener {
     private void setupJails() {
 
         for (int i = 0; i < ROWS * 2; i++) {
-            JPanel label = new JPanel(new GridLayout(1, 1));
+        	JPanel label = new JPanel();
             label.add(new JLabel(new ImageIcon()));
-            //label.addMouseListener(this);
             wJail.add(label, i);
         }
         for (int i = 0; i < ROWS * 2; i++) {
-            JPanel label = new JPanel(new GridLayout(1, 1));
+            JPanel label = new JPanel();
             label.add(new JLabel(new ImageIcon()));
-            //label.addMouseListener(this);
             bJail.add(label, i);
         }
     }
@@ -361,25 +368,113 @@ ActionListener, MouseListener {
                 selectedSpace.setBorder(new LineBorder(null));
 
             } else if (Board.getBoard().getPiece(xSel, ySel).isValidMove(x, y) && Board.getBoard().getPiece(xSel, ySel).getColor() == Board.getBoard().getTurn()) {
+	    
+	                /* Save chess board before move */
+	                Board.saveChessBoard();
+	                
+	                /* Make move */
+	                Piece captured = Board.getBoard().getPiece(xSel, ySel).move(x, y);
+	                
+	                /* If the king is still in check, undo the board */
+	                if (Board.isCheck(Board.getBoard().getPiece(x, y).getColor())) {
+	                	Board.undoChessBoard();
+	                } else {
+	                	
+	                	Board.undoChessBoard();
+	                	Board.getBoard().togleTurn();
+	
+	                	/* if the move is valid, highlight space, move piece and move GUI label */
+		                moveLabel(selectedSpace, (JPanel) e.getComponent());
+		                ((JPanel) e.getComponent()).setBorder(new LineBorder(Color.RED, 2));
+		                
+		                /* Make move */
+		                captured = Board.getBoard().getPiece(xSel, ySel).move(x, y);
+		                
+	                	if (captured != null) {
+	                		moveToJail(captured);
+	                	}
+	                
+	                	/* if pawn reaches the other side, it gets promoted */
+	                	if (Board.getBoard().getPiece(x, y) instanceof Pawn && y == 0) {
+	                		pawnPromotion((JPanel) e.getComponent(), x, y, Board.getBoard().getPiece(x, y).getColor());
+	                	}
+	
+	                	selected = false;
+	                	((JPanel) e.getComponent()).setBorder(new LineBorder(null));
+	                	selectedSpace.setBorder(new LineBorder(null));
+	                	
+	                }
 
-                /* if the move is valid, highlight space, move piece and move GUI label */
-                moveLabel(selectedSpace, (JPanel) e.getComponent());
-                ((JPanel) e.getComponent()).setBorder(new LineBorder(Color.RED, 2));
-                Piece captured = Board.getBoard().getPiece(xSel, ySel).move(x, y);
-                Board.getBoard().togleTurn();
-
-                if (captured != null) {
-                    moveToJail(captured);
-                }
-
-                selected = false;
-                ((JPanel) e.getComponent()).setBorder(new LineBorder(null));
-                selectedSpace.setBorder(new LineBorder(null));
                 kingCheck();
             }
         }
     }
 
+    public void pawnPromotion(JPanel p, int x, int y, int color) {
+    	/* Remove pawn */
+    	p.remove(0);
+    	Board.getBoard().getPiece(x, y).capture();
+    	
+    	/* Ask user which piece they would like to upgrade to using a pop-up window */
+    	JFrame frame = new JFrame();
+    	ImageIcon icon = new ImageIcon("PawnB.png");
+    	Object[] possibilities = {"Queen", "Rook", "Knight", "Bishop"};
+    	String s = (String) JOptionPane.showInputDialog(frame, "Which piece would you like to upgrade to?",
+    	                    "Pawn Promotion", JOptionPane.PLAIN_MESSAGE, icon, possibilities, "Queen");
+
+    	/* If no piece was selected, set string to queen */
+    	if (s == null) {
+    		s = "Queen";
+    	}
+    	
+    	/* Add piece to selected JPanel and chess board */
+    	Piece piece = null;
+    	System.out.println("RETURNED: " + s);
+    	    
+    	switch (s) {
+    	case "Queen":
+    		piece = new Queen(x, y, color);
+    	    if (color == WHITE) {
+    	    	p.add(new JLabel(new ImageIcon("QueenW.png")));
+    	    } else {
+    	    	p.add(new JLabel(new ImageIcon("QueenB.png")));
+    	    }
+    	    break;
+    	    	
+    	case "Rook":
+    	    piece = new Rook(x, y, color);
+    	    if (color == WHITE) {
+    	    	p.add(new JLabel(new ImageIcon("RookW.png")));
+    	    } else {
+    	    	p.add(new JLabel(new ImageIcon("RookB.png")));
+    	    }
+    	    break;
+    	    	
+    	case "Knight":
+    	    piece = new Knight(x, y, color);
+    	    if (color == WHITE) {
+    	    	p.add(new JLabel(new ImageIcon("HorseW.png")));
+    	    } else {
+    	    	p.add(new JLabel(new ImageIcon("HorseB.png")));
+    	    }
+    	    break;
+    	    	
+    	case "Bishop":
+    	    piece = new Bishop(x, y, color);
+    	    if (color == WHITE) {
+    	    	p.add(new JLabel(new ImageIcon("BishopW.png")));
+    	    } else {
+    	    	p.add(new JLabel(new ImageIcon("BishopB.png")));
+    	    }
+    	    break;
+    	    	
+    	default:
+
+    	    break;
+    	}
+    	Board.setPiece(piece);
+    }
+    
     /**
      * Moves picture of piece.
      * @param moveFrom
@@ -433,7 +528,7 @@ ActionListener, MouseListener {
                 moveTo.add(new JLabel(new ImageIcon("bishopW.png")));
             }
         }
-        kingCheck();
+        //kingCheck();
         board.revalidate();
         board.repaint();
         pane.revalidate();
@@ -522,6 +617,7 @@ ActionListener, MouseListener {
         if (Board.isCheck(WHITE)) {
             wKing.setBackground(Color.red);
         }
+
         board.revalidate();
         board.repaint();
         pane.revalidate();
@@ -545,8 +641,8 @@ ActionListener, MouseListener {
     
     private void resetBoard() {
         ChessGUI gui = new ChessGUI();
-        gui.pane.add(gui.board);
-        gui.add(gui.pane);
+        pane.add(board);
+        gui.add(pane);
         gui.setSize(GUI_SIZE, GUI_SIZE);
         gui.setTitle("The Game of Chess");
         gui.getContentPane().setPreferredSize(new Dimension(PANE_SIZE, PANE_SIZE));

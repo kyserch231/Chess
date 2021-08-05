@@ -52,7 +52,7 @@ public class Board {
 
     /** Create and empty game board. */
     private static Board gameBoard = null;
-
+    
     /** White player gets first move. */
     private int turn = WHITE;
 
@@ -66,14 +66,23 @@ public class Board {
         return gameBoard;
     }
     /** Matrix of chess pieces. */
-    private Piece[][] chessBoard;
+    private static Piece[][] chessBoard;
 
+    /** Matrix of chess pieces. */
+    private static Piece[][] chessBoardSaved;
+    
     /** Array that contains all white pieces. */
     private static ArrayList<Piece> whitePieces;
 
     /** Array that contains all black pieces. */
     private static ArrayList<Piece> blackPieces;
 
+    /** Array that contains all white pieces. */
+    private static ArrayList<Piece> whitePiecesSaved;
+
+    /** Array that contains all black pieces. */
+    private static ArrayList<Piece> blackPiecesSaved;
+    
     /**
      * Initializes board and pieces.
      */
@@ -174,7 +183,7 @@ public class Board {
      * Sets the location the the piece p.
      * @param p
      */
-    public void setPiece(final Piece p) {
+    public static void setPiece(final Piece p) {
         chessBoard[p.getLoc().getPosX()][p.getLoc().getPosY()] = p;
     }
 
@@ -204,7 +213,7 @@ public class Board {
     */
 	public static boolean isCheck(int color){
 		
-		if(color == BLACK){
+		if (color == BLACK) {
 			
 			int xBlack = getBlackX();
 			int yBlack = getBlackY();
@@ -216,7 +225,7 @@ public class Board {
 				}
 			}
 			return false;
-		}else {
+		} else {
 			
 			int xWhite = getWhiteX();
 			int yWhite = getWhiteY();
@@ -230,6 +239,96 @@ public class Board {
 			return false;			
 		}
 		
+	}
+	
+	public static void saveChessBoard() {
+		
+
+		/* Create new board just like like the other board */
+		chessBoardSaved = new Piece[ROWS + 1][COLS + 1];
+		
+		whitePiecesSaved = new ArrayList<Piece>();
+		blackPiecesSaved = new ArrayList<Piece>();
+//        for (Piece w: whitePieces) {
+//        	Piece wAdd = w;
+//            whitePiecesSaved.add(wAdd);
+//        }
+    
+        whitePiecesSaved.clear();
+        whitePiecesSaved.add(new Rook(whitePieces.get(0).getLoc().getPosX(), whitePieces.get(0).getLoc().getPosY(), WHITE));
+        whitePiecesSaved.add(new Knight(whitePieces.get(1).getLoc().getPosX(), whitePieces.get(1).getLoc().getPosY(), WHITE));
+        whitePiecesSaved.add(new Bishop(whitePieces.get(2).getLoc().getPosX(), whitePieces.get(2).getLoc().getPosY(), WHITE));
+        whitePiecesSaved.add(new King(whitePieces.get(3).getLoc().getPosX(), whitePieces.get(3).getLoc().getPosY(), WHITE));
+        whitePiecesSaved.add(new Queen(whitePieces.get(4).getLoc().getPosX(), whitePieces.get(4).getLoc().getPosY(), WHITE));
+        whitePiecesSaved.add(new Bishop(whitePieces.get(5).getLoc().getPosX(), whitePieces.get(5).getLoc().getPosY(), WHITE));
+        whitePiecesSaved.add(new Knight(whitePieces.get(6).getLoc().getPosX(), whitePieces.get(6).getLoc().getPosY(), WHITE));
+        whitePiecesSaved.add(new Rook(whitePieces.get(7).getLoc().getPosX(), whitePieces.get(7).getLoc().getPosY(), WHITE));
+        
+        for (int i = 8; i < 16; i++) {
+        	whitePiecesSaved.add(new Pawn(whitePieces.get(i).getLoc().getPosX(), whitePieces.get(i).getLoc().getPosY(), WHITE));
+        }
+        
+        blackPiecesSaved.clear();
+        blackPiecesSaved.add(new Rook(blackPieces.get(0).getLoc().getPosX(), blackPieces.get(0).getLoc().getPosY(), BLACK));
+        blackPiecesSaved.add(new Knight(blackPieces.get(1).getLoc().getPosX(), blackPieces.get(1).getLoc().getPosY(), BLACK));
+        blackPiecesSaved.add(new Bishop(blackPieces.get(2).getLoc().getPosX(), blackPieces.get(2).getLoc().getPosY(), BLACK));
+        blackPiecesSaved.add(new King(blackPieces.get(3).getLoc().getPosX(), blackPieces.get(3).getLoc().getPosY(), BLACK));
+        blackPiecesSaved.add(new Queen(blackPieces.get(4).getLoc().getPosX(), blackPieces.get(4).getLoc().getPosY(), BLACK));
+        blackPiecesSaved.add(new Bishop(blackPieces.get(5).getLoc().getPosX(), blackPieces.get(5).getLoc().getPosY(), BLACK));
+        blackPiecesSaved.add(new Knight(blackPieces.get(6).getLoc().getPosX(), blackPieces.get(6).getLoc().getPosY(), BLACK));
+        blackPiecesSaved.add(new Rook(blackPieces.get(7).getLoc().getPosX(), blackPieces.get(7).getLoc().getPosY(), BLACK));
+        
+        for (int i = 8; i < 16; i++) {
+            blackPiecesSaved.add(new Pawn(blackPieces.get(i).getLoc().getPosX(), blackPieces.get(i).getLoc().getPosY(), BLACK));
+        }
+        
+//		blackPiecesSaved = new ArrayList<Piece>();
+//		for (Piece b: blackPieces) {
+//			Piece bAdd = b;
+//			blackPiecesSaved.add(bAdd);
+//        }
+		
+        for (Piece b: blackPiecesSaved) {
+            chessBoardSaved[b.getLoc().getPosX()][b.getLoc().getPosY()] = b;
+        }
+        for (Piece w: whitePiecesSaved) {
+            chessBoardSaved[w.getLoc().getPosX()][w.getLoc().getPosY()] = w;
+        }
+        System.out.print("Board Saved\n");
+	}
+
+	public static void undoChessBoard() {
+		
+		/* Create new board just like like the other board */
+		//chessBoard = null;
+		
+		whitePieces.clear();
+        for (Piece w: whitePiecesSaved) {
+        	Piece wAdd = w;
+            whitePieces.add(wAdd);
+        }
+    
+		blackPieces.clear();
+		for (Piece b: blackPiecesSaved) {
+			Piece bAdd = b;
+            blackPieces.add(bAdd);
+        }
+		
+		/* Clear current board */
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				chessBoard[i][j] = null;
+			}
+		}
+		
+		/* Add saved pieces */
+        for (Piece b: blackPieces) {
+            chessBoard[b.getLoc().getPosX()][b.getLoc().getPosY()] = b;
+        }
+        for (Piece w: whitePieces) {
+            chessBoard[w.getLoc().getPosX()][w.getLoc().getPosY()] = w;
+        }
+        System.out.print("Undo Board\n");
 	}
 
 	/**
@@ -273,7 +372,8 @@ public class Board {
 	public static ArrayList<Piece> getBlackPieces() {
 		return blackPieces;
 	}
-	
+
+
     /**
      * Resets board to starting position.
      */

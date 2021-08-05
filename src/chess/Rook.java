@@ -2,6 +2,8 @@ package chess;
 
 import static chess.Constants.ACTIVE;
 import static chess.Constants.INACTIVE;
+import static chess.Constants.BLACK;
+import static chess.Constants.WHITE;
 
 public class Rook extends Movable implements Piece {
     /**
@@ -66,18 +68,12 @@ public class Rook extends Movable implements Piece {
                     }
                 }
             }
-            /*
-             * If selected location contains another
-             * piece in the same color, move is invalid.
-             */
+            /* If selected location contains another piece in the same color, move is invalid. */
             if (board.getColorAt(x, y) == getColor()) {
                 return false;
             }
-
-            /*
-             * If selected location contains a piece in
-             * the opposite color, then that piece is killed.
-             */
+            
+            /* If selected location contains a piece in the opposite color, then that piece is killed. */
             if (board.getColorAt(x, y) != getColor() && !board.isEmpty(x, y) && (disX == 0 || disY == 0)) {
                 //board.getPiece(x, y).kill();
                 System.out.println("rook attach");

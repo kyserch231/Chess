@@ -95,6 +95,9 @@ public class Pawn extends Movable implements Piece {
         Board.getBoard().setPiece(this);
         hasMoved = true;
 
+        if (this.getPosY() == 0 || this.getPosY() == 7) {
+        	System.out.println("PAWN PROMOTION");
+        }
         return captured;
     }
 
