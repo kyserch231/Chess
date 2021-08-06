@@ -194,48 +194,48 @@ ActionListener, MouseListener {
         }
         int next = 0;
         ((JPanel) board.getComponent(next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("rookB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/rookB.png")));
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("horseB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/horseB.png")));
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("bishopB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/bishopB.png")));
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("kingB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/kingB.png")));
         bKing = board.getComponent(next);
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("queenB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/queenB.png")));
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("bishopB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/bishopB.png")));
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("horseB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/horseB.png")));
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next++)).add(new JLabel(new ImageIcon("rookB.png")));
+        ((JPanel) board.getComponent(next++)).add(new JLabel(new ImageIcon("images/rookB.png")));
         for (int i = 0; i < COLS; ++i, ++next) {
             ((JPanel) board.getComponent(next)).remove(0);
-            ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("pawnB.png")));
+            ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/pawnB.png")));
         }
 
         next = BOARD_SIZE - 1;
         ((JPanel) board.getComponent(next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("rookW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/rookW.png")));
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("horseW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/horseW.png")));
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("bishopW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/bishopW.png")));
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("queenW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/queenW.png")));
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("kingW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/kingW.png")));
         wKing = board.getComponent(next);
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("bishopW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/bishopW.png")));
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("horseW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/horseW.png")));
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next--)).add(new JLabel(new ImageIcon("rookW.png")));
+        ((JPanel) board.getComponent(next--)).add(new JLabel(new ImageIcon("images/rookW.png")));
         for (int i = 0; i < COLS; ++i, --next) {
             ((JPanel) board.getComponent(next)).remove(0);
-            ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("pawnW.png")));
+            ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/pawnW.png")));
         }
         setupJails();
         setupMenus();
