@@ -9,6 +9,7 @@ import static chess.Constants.BOARD_SIZE;
 import static chess.Constants.ROWS;
 import static chess.Constants.COLS;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +28,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ChessGUI extends JFrame implements
 ActionListener, MouseListener {
@@ -122,7 +126,7 @@ ActionListener, MouseListener {
      * @param args
      */
     public static void main(final String[] args) {
-        ChessGUI gui = new ChessGUI();
+    	ChessGUI gui = new ChessGUI();
         gui.pane.add(gui.board);
         gui.add(gui.pane);
         gui.setSize(GUI_SIZE, GUI_SIZE);
@@ -160,67 +164,98 @@ ActionListener, MouseListener {
             board.add(label, n);
             n++;
         }
-        int next = 0;
-        ((JPanel) board.getComponent(next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("rookB.png")));
-        ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("horseB.png")));
-        ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("bishopB.png")));
-        ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("kingB.png")));
-        ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("queenB.png")));
-        ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("bishopB.png")));
-        ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("horseB.png")));
-        ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next++)).
-        add(new JLabel(new ImageIcon("rookB.png")));
-        for (int i = 0; i < COLS; ++i, ++next) {
-            ((JPanel) board.getComponent(next)).remove(0);
-            ((JPanel) board.getComponent(next)).
-            add(new JLabel(new ImageIcon("pawnB.png")));
-        }
+        
+        String rookB = "rookB.png";
+        String rookW = "rookW.png";
+        String bishopB = "bishopB.png";
+        String bishopW = "bishopW.png";
+        String horseB = "horseB.png";
+        String horseW = "horseW.png";
+        String kingB = "kingB.png";
+        String kingW = "kingW.png";
+        String pawnB = "pawnB.png";
+        String pawnW = "pawnW.png";
+        String queenB = "queenB.png";
+        String queenW = "queenW.png";
+        try {
+        	int next = 0;
+			BufferedImage rookBImg = ImageIO.read(new File(rookB));
+			BufferedImage rookWImg = ImageIO.read(new File(rookW));
+			BufferedImage bishopBImg = ImageIO.read(new File(bishopB));
+			BufferedImage bishopWImg = ImageIO.read(new File(bishopW));
+			BufferedImage horseBImg = ImageIO.read(new File(horseB));
+			BufferedImage horseWImg = ImageIO.read(new File(horseW));
+			BufferedImage kingBImg = ImageIO.read(new File(kingB));
+			BufferedImage kingWImg = ImageIO.read(new File(kingW));
+			BufferedImage pawnBImg = ImageIO.read(new File(pawnB));
+			BufferedImage pawnWImg = ImageIO.read(new File(pawnW));
+			BufferedImage queenBImg = ImageIO.read(new File(queenB));
+			BufferedImage queenWImg = ImageIO.read(new File(queenW));
+			
+			((JPanel) board.getComponent(next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(rookBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(horseBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(bishopBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(kingBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(queenBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(bishopBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(horseBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next++)).
+	        add(new JLabel(new ImageIcon(rookBImg)));
+	        for (int i = 0; i < COLS; ++i, ++next) {
+	            ((JPanel) board.getComponent(next)).remove(0);
+	            ((JPanel) board.getComponent(next)).
+	            add(new JLabel(new ImageIcon(pawnBImg)));
+	        }
 
-        next = BOARD_SIZE - 1;
-        ((JPanel) board.getComponent(next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("rookW.png")));
-        ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("horseW.png")));
-        ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("bishopW.png")));
-        ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("queenW.png")));
-        ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("kingW.png")));
-        ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("bishopW.png")));
-        ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).
-        add(new JLabel(new ImageIcon("horseW.png")));
-        ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next--)).
-        add(new JLabel(new ImageIcon("rookW.png")));
-        for (int i = 0; i < COLS; ++i, --next) {
-            ((JPanel) board.getComponent(next)).remove(0);
-            ((JPanel) board.getComponent(next)).
-            add(new JLabel(new ImageIcon("pawnW.png")));
-        }
+	        next = BOARD_SIZE - 1;
+	        ((JPanel) board.getComponent(next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(rookWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(horseWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(bishopWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(queenWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(kingWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(bishopWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(horseWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next--)).
+	        add(new JLabel(new ImageIcon(rookWImg)));
+	        for (int i = 0; i < COLS; ++i, --next) {
+	            ((JPanel) board.getComponent(next)).remove(0);
+	            ((JPanel) board.getComponent(next)).
+	            add(new JLabel(new ImageIcon(pawnWImg)));
+	        }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         setupMenus();
     }
 
@@ -442,7 +477,7 @@ ActionListener, MouseListener {
         // TODO Auto-generated method stub
     }
     
-    private void resetBoard() {
+    static void resetBoard() {
 		ChessGUI gui = new ChessGUI();
     	gui.pane.add(gui.board);
 		gui.add(gui.pane);
@@ -453,6 +488,4 @@ ActionListener, MouseListener {
 		gui.setVisible(true);
 		Board.getBoard().resetBoard();
 	}
-
-
 }

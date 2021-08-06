@@ -92,7 +92,13 @@ public class King extends Movable implements Piece {
     public void kill() {
         // pop up of who won
         setState(INACTIVE);
-        JFrame frame = new JFrame("JOptionPane showMessageDialog example");
-		JOptionPane.showMessageDialog(frame, "You have won, use the file tab to play again!");
+        int restart =  JOptionPane.showConfirmDialog(null,
+                "Do you want to restart?", "You Win!", JOptionPane.YES_NO_OPTION);
+
+          if (restart == JOptionPane.YES_OPTION) {
+              
+          } else if (restart == JOptionPane.NO_OPTION) {
+        	  System.exit(1);
+          }
     }
 }
