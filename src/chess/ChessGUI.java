@@ -271,6 +271,7 @@ ActionListener, MouseListener {
             ((JPanel) board.getComponent(next)).remove(0);
             ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(pawnWImg)));
         }
+        
         setupJails();
         setupMenus();
     }
