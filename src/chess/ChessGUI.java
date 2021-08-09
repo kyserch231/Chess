@@ -220,7 +220,7 @@ ActionListener, MouseListener {
         int b = 0;
 
         for (int i = 0; i < BOARD_SIZE; i++) {
-            JPanel label = new JPanel(new GridLayout(1, 1));
+        	JPanel label = new JPanel(new GridLayout(1, 1));
             label.add(new JLabel(new ImageIcon()));
 
             if (i % 2 == a) {
@@ -707,8 +707,69 @@ ActionListener, MouseListener {
         pane.revalidate();
         pane.repaint();
     }
-    
-    @Override
+
+    private void resetBoard() {
+    	int next = 0;
+    	for(int i = 0; i < 8; i++) {
+    		for(int j = 0; j < 8; j++) {
+    			if (Board.getBoard().isEmpty(i, j)) {
+    	            System.out.println( i + " " + j + " is Empty");
+    	        }
+    			else {
+    				((JPanel) board.getComponent(next)).remove(0);
+    			}
+    			next++;
+    			board.revalidate();
+    	        board.repaint();
+    	        pane.revalidate();
+    	        pane.repaint();
+    		}
+    	}
+    	
+    	next = 0;
+        
+
+//        ((JPanel) board.getComponent(next++)).add(new JLabel( new ImageIcon(rookBImg)));
+//        ((JPanel) board.getComponent(next++)).add(new JLabel(new ImageIcon(horseBImg)));
+//        ((JPanel) board.getComponent(next++)).add(new JLabel(new ImageIcon(bishopBImg)));
+//        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(kingBImg)));
+//        bKing = board.getComponent(next++);
+//        ((JPanel) board.getComponent(next++)).add(new JLabel(new ImageIcon(queenBImg)));
+//        ((JPanel) board.getComponent(next++)).add(new JLabel(new ImageIcon(bishopBImg)));
+//        ((JPanel) board.getComponent(next++)).add(new JLabel(new ImageIcon(horseBImg)));
+//        ((JPanel) board.getComponent(next++)).add(new JLabel(new ImageIcon(rookBImg)));
+//        for (int i = 0; i < COLS; ++i, ++next) {
+//            ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(pawnBImg)));
+//        }
+//
+//        next = BOARD_SIZE - 1;
+// 
+//        ((JPanel) board.getComponent(next--)).add(new JLabel(new ImageIcon(rookWImg)));
+//        ((JPanel) board.getComponent(next--)).add(new JLabel(new ImageIcon(horseWImg)));
+//        ((JPanel) board.getComponent(next--)).add(new JLabel(new ImageIcon(bishopWImg)));
+//        ((JPanel) board.getComponent(next--)).add(new JLabel(new ImageIcon(queenWImg)));
+//        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(kingWImg)));
+//        wKing = board.getComponent(next--);
+//        ((JPanel) board.getComponent(next--)).add(new JLabel(new ImageIcon(bishopWImg)));
+//        ((JPanel) board.getComponent(next--)).add(new JLabel(new ImageIcon(horseWImg)));
+//        ((JPanel) board.getComponent(next--)).add(new JLabel(new ImageIcon(rookWImg)));
+//        for (int i = 0; i < COLS; ++i, --next) {
+//            ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(pawnWImg)));
+//        }
+    	board.revalidate();
+        board.repaint();
+        pane.revalidate();
+        pane.repaint();
+        Board.getBoard().resetBoard();
+    }
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
     public void mouseReleased(final MouseEvent e) {
         // TODO Auto-generated method stub
     }
@@ -717,20 +778,4 @@ ActionListener, MouseListener {
     public void mouseEntered(final MouseEvent e) {
         // TODO Auto-generated method stub
     }
-
-    @Override
-    public void mouseExited(final MouseEvent e) {
-        // TODO Auto-generated method stub
-    }
-    
-
-    private void resetBoard() {
-    	for (int next = 0; next < BOARD_SIZE; next++) {
-    		if ((JPanel) board.getComponent(next) != null) {
-    			((JPanel) board.getComponent(next)).remove(0);
-    		}
-    	}
-        Board.getBoard().resetBoard();
-    }
-
 }
