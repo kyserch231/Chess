@@ -100,7 +100,8 @@ public class Rook extends Movable implements Piece {
             Board.getBoard().getPiece(x, y).capture();
         }
 
-        Board.getBoard().setToEmpty(this.getPosX(), this.getPosY());
+        Board.getBoard();
+		Board.setToEmpty(this.getPosX(), this.getPosY());
         setPos(x, y);
         Board.getBoard().setPiece(this);
 

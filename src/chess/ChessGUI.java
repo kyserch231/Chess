@@ -162,6 +162,8 @@ ActionListener, MouseListener {
      * is currently selected.
      */
     private boolean selected = false;
+    
+    private boolean inCheck = false;
 
     /** Component of black king. */
     private Component bKing;
@@ -550,17 +552,20 @@ ActionListener, MouseListener {
             } else if (Board.getBoard().getPiece(xSel, ySel).isValidMove(x, y) && Board.getBoard().getPiece(xSel, ySel).getColor() == Board.getBoard().getTurn()) {
 	    
 	                /* Save chess board before move */
-	                Board.saveChessBoard();
+            		if (Board.isCheck(Board.getBoard().getPiece(xSel, ySel).getColor())) {
+            			inCheck = true;
+            		}
 	                
 	                /* Make move */
 	                Piece captured = Board.getBoard().getPiece(xSel, ySel).move(x, y);
 	                
 	                /* If the king is still in check, undo the board */
-	                if (Board.isCheck(Board.getBoard().getPiece(x, y).getColor())) {
-	                	Board.undoChessBoard();
+	                if (Board.isCheck(Board.getBoard().getPiece(x, y).getColor()) && inCheck) {
+	                	Board.undoMove(Board.getBoard().getPiece(x, y), captured, xSel, ySel);
 	                } else {
 	                	
-	                	Board.undoChessBoard();
+	                	//Board.undoChessBoard();
+	                	Board.undoMove(Board.getBoard().getPiece(x, y), captured, xSel, ySel);
 	                	Board.getBoard().togleTurn();
 	
 	                	/* if the move is valid, highlight space, move piece and move GUI label */
@@ -568,7 +573,7 @@ ActionListener, MouseListener {
 		                ((JPanel) e.getComponent()).setBorder(new LineBorder(Color.RED, 2));
 		                
 		                /* Make move */
-		                captured = Board.getBoard().getPiece(xSel, ySel).move(x, y);
+		                Board.getBoard().getPiece(xSel, ySel).move(x, y);
 		                
 	                	if (captured != null) {
 	                		moveToJail(captured);
@@ -583,8 +588,8 @@ ActionListener, MouseListener {
 	                	((JPanel) e.getComponent()).setBorder(new LineBorder(null));
 	                	selectedSpace.setBorder(new LineBorder(null));
 	                	
+	                	inCheck = false;
 	                }
-
                 kingCheck();
             }
         }
@@ -652,6 +657,12 @@ ActionListener, MouseListener {
 
     	    break;
     	}
+    	if (color == WHITE) {
+    		Board.addWhitePiece(piece);
+    	} else {
+    		Board.addBlackPiece(piece);
+    	}
+
     	Board.setPiece(piece);
     }
     
@@ -708,7 +719,6 @@ ActionListener, MouseListener {
                 moveTo.add(new JLabel(new ImageIcon(bishopWImg)));
             }
         }
-        //kingCheck();
         board.revalidate();
         board.repaint();
         pane.revalidate();
