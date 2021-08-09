@@ -211,7 +211,7 @@ public class Board {
     * @param color of king to check
     * @return true if a piece has an opposite king in check
     */
-	public static boolean isCheck(int color){
+	public static boolean isCheck(int color) {
 		
 		if (color == BLACK) {
 			
