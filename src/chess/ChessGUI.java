@@ -474,7 +474,7 @@ ActionListener, MouseListener {
 	                	}
 	                
 	                	/* if pawn reaches the other side, it gets promoted */
-	                	if (Board.getBoard().getPiece(x, y) instanceof Pawn && y == 0) {
+	                	if (Board.getBoard().getPiece(x, y) instanceof Pawn && (y == 0) ||  y == 7) {
 	                		pawnPromotion((JPanel) e.getComponent(), x, y, Board.getBoard().getPiece(x, y).getColor());
 	                	}
 	
