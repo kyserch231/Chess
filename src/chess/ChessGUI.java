@@ -404,14 +404,14 @@ ActionListener, MouseListener {
                     selectedSpace = (JPanel) e.getComponent();
                 }
 
-            	if(Board.getBoard().getTurn() == WHITE && Board.getBoard().getPiece(x, y).getColor() == WHITE) {
+            	if (Board.getBoard().getTurn() == WHITE && Board.getBoard().getPiece(x, y).getColor() == WHITE) {
             		// set border to blue
                     ((JPanel) e.getComponent()).setBorder(
                             new LineBorder(Color.BLUE, 2));
                     selected = true;
                     // set currently selected square
                     selectedSpace = (JPanel) e.getComponent();
-				} else if(Board.getBoard().getTurn() == BLACK && Board.getBoard().getPiece(x, y).getColor() == BLACK) {
+				} else if (Board.getBoard().getTurn() == BLACK && Board.getBoard().getPiece(x, y).getColor() == BLACK) {
 					// set border to blue
 	                ((JPanel) e.getComponent()).setBorder(
 	                        new LineBorder(Color.BLUE, 2));
