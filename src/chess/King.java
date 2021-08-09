@@ -4,6 +4,9 @@ import static chess.Constants.ACTIVE;
 import static chess.Constants.BLACK;
 import static chess.Constants.INACTIVE;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class King extends Movable implements Piece {
     /**
      * Initializes a new piece by setting the position,
@@ -89,6 +92,14 @@ public class King extends Movable implements Piece {
     public void capture() {
         // pop up of who won
         setState(INACTIVE);
+        int restart =  JOptionPane.showConfirmDialog(null,
+                "Do you want to restart?", "You Win!", JOptionPane.YES_NO_OPTION);
+
+          if (restart == JOptionPane.YES_OPTION) {
+              
+          } else if (restart == JOptionPane.NO_OPTION) {
+        	  System.exit(1);
+          }
     }
     
     /**

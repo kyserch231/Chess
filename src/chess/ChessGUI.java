@@ -11,7 +11,12 @@ import static chess.Constants.ROW_7;
 import static chess.Constants.COLS;
 import static chess.Constants.COL_4;
 
+<<<<<<< HEAD
+
 import javax.swing.GroupLayout;
+=======
+import javax.imageio.ImageIO;
+>>>>>>> master
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,10 +36,21 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+<<<<<<< HEAD
+import java.net.URL;
+
+
+=======
+import java.io.File;
+import java.io.IOException;
+>>>>>>> master
 
 public class ChessGUI extends JFrame implements
 ActionListener, MouseListener {
@@ -105,10 +121,17 @@ ActionListener, MouseListener {
     private JMenu fileMenu;
 
     /** Menu item to quit the game. */
+<<<<<<< HEAD
     private static JMenuItem quitItem;
 
     /** Menu item to restart the game. */
     private JMenuItem restartItem;
+=======
+    private JMenuItem quitItem;
+    
+    /** Menu item to restart the game. */
+    JMenuItem restartItem;
+>>>>>>> master
 
     /** Menu item to view the rules of the game. */
     private JMenuItem rulesItem;
@@ -147,20 +170,52 @@ ActionListener, MouseListener {
     
     /** Component number of white king. */
     private Component wKing;
+    
+    URL rookB = getClass().getResource("/res/rookB.png");
+    Image rookBImg = Toolkit.getDefaultToolkit().getImage(rookB);
+    URL horseB = getClass().getResource("/res/horseB.png");
+    Image horseBImg = Toolkit.getDefaultToolkit().getImage(horseB);
+    URL bishopB = getClass().getResource("/res/bishopB.png");
+    Image bishopBImg = Toolkit.getDefaultToolkit().getImage(bishopB);
+    URL kingB = getClass().getResource("/res/kingB.png");
+    Image kingBImg = Toolkit.getDefaultToolkit().getImage(kingB);
+    URL queenB = getClass().getResource("/res/queenB.png");
+    Image queenBImg = Toolkit.getDefaultToolkit().getImage(queenB);
+    URL pawnB = getClass().getResource("/res/pawnB.png");
+    Image pawnBImg = Toolkit.getDefaultToolkit().getImage(pawnB);
+    
+    URL rookW = getClass().getResource("/res/rookW.png");
+    Image rookWImg = Toolkit.getDefaultToolkit().getImage(rookW);
+    URL horseW = getClass().getResource("/res/horseW.png");
+    Image horseWImg = Toolkit.getDefaultToolkit().getImage(horseW);
+    URL bishopW = getClass().getResource("/res/bishopW.png");
+    Image bishopWImg = Toolkit.getDefaultToolkit().getImage(bishopW);
+    URL kingW = getClass().getResource("/res/kingW.png");
+    Image kingWImg = Toolkit.getDefaultToolkit().getImage(kingW);
+    URL queenW = getClass().getResource("/res/queenW.png");
+    Image queenWImg = Toolkit.getDefaultToolkit().getImage(queenW);
+    URL pawnW = getClass().getResource("/res/pawnW.png");
+    Image pawnWImg = Toolkit.getDefaultToolkit().getImage(pawnW);
 
     /**
      * @param args
      */
     public static void main(final String[] args) {
+<<<<<<< HEAD
         ChessGUI gui = new ChessGUI();
 
+        wJail.setPreferredSize(new Dimension( 2*SQUARE_SIZE, 8*SQUARE_SIZE));
+        bJail.setPreferredSize(new Dimension( 2*SQUARE_SIZE, 8*SQUARE_SIZE));
     	pane.add(wJail);
-        
         pane.add(board);
-
         pane.add(bJail);
         
         gui.add(pane);
+=======
+    	ChessGUI gui = new ChessGUI();
+        gui.pane.add(gui.board);
+        gui.add(gui.pane);
+>>>>>>> master
         gui.setSize(GUI_SIZE, GUI_SIZE);
         gui.setTitle("The Game of Chess");
         gui.getContentPane().setPreferredSize(new Dimension(PANE_SIZE, PANE_SIZE));
@@ -194,52 +249,149 @@ ActionListener, MouseListener {
             board.add(label, n);
             n++;
         }
+<<<<<<< HEAD
         int next = 0;
+        
         ((JPanel) board.getComponent(next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/rookB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel( new ImageIcon(rookBImg)));
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/horseB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(horseBImg)));
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/bishopB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(bishopBImg)));
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/kingB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(kingBImg)));
         bKing = board.getComponent(next);
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/queenB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(queenBImg)));
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/bishopB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(bishopBImg)));
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/horseB.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(horseBImg)));
         ((JPanel) board.getComponent(++next)).remove(0);
-        ((JPanel) board.getComponent(next++)).add(new JLabel(new ImageIcon("images/rookB.png")));
+        ((JPanel) board.getComponent(next++)).add(new JLabel(new ImageIcon(rookBImg)));
         for (int i = 0; i < COLS; ++i, ++next) {
             ((JPanel) board.getComponent(next)).remove(0);
-            ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/pawnB.png")));
+            ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(pawnBImg)));
         }
 
         next = BOARD_SIZE - 1;
         ((JPanel) board.getComponent(next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/rookW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(rookWImg)));
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/horseW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(horseWImg)));
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/bishopW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(bishopWImg)));
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/queenW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(queenWImg)));
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/kingW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(kingWImg)));
         wKing = board.getComponent(next);
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/bishopW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(bishopWImg)));
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/horseW.png")));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(horseWImg)));
         ((JPanel) board.getComponent(--next)).remove(0);
-        ((JPanel) board.getComponent(next--)).add(new JLabel(new ImageIcon("images/rookW.png")));
+        ((JPanel) board.getComponent(next--)).add(new JLabel(new ImageIcon(rookWImg)));
         for (int i = 0; i < COLS; ++i, --next) {
             ((JPanel) board.getComponent(next)).remove(0);
-            ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon("images/pawnW.png")));
+            ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(pawnWImg)));
         }
+        
         setupJails();
+=======
+        
+        String rookB = "rookB.png";
+        String rookW = "rookW.png";
+        String bishopB = "bishopB.png";
+        String bishopW = "bishopW.png";
+        String horseB = "horseB.png";
+        String horseW = "horseW.png";
+        String kingB = "kingB.png";
+        String kingW = "kingW.png";
+        String pawnB = "pawnB.png";
+        String pawnW = "pawnW.png";
+        String queenB = "queenB.png";
+        String queenW = "queenW.png";
+        try {
+        	int next = 0;
+			BufferedImage rookBImg = ImageIO.read(new File(rookB));
+			BufferedImage rookWImg = ImageIO.read(new File(rookW));
+			BufferedImage bishopBImg = ImageIO.read(new File(bishopB));
+			BufferedImage bishopWImg = ImageIO.read(new File(bishopW));
+			BufferedImage horseBImg = ImageIO.read(new File(horseB));
+			BufferedImage horseWImg = ImageIO.read(new File(horseW));
+			BufferedImage kingBImg = ImageIO.read(new File(kingB));
+			BufferedImage kingWImg = ImageIO.read(new File(kingW));
+			BufferedImage pawnBImg = ImageIO.read(new File(pawnB));
+			BufferedImage pawnWImg = ImageIO.read(new File(pawnW));
+			BufferedImage queenBImg = ImageIO.read(new File(queenB));
+			BufferedImage queenWImg = ImageIO.read(new File(queenW));
+			
+			((JPanel) board.getComponent(next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(rookBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(horseBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(bishopBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(kingBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(queenBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(bishopBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(horseBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next++)).
+	        add(new JLabel(new ImageIcon(rookBImg)));
+	        for (int i = 0; i < COLS; ++i, ++next) {
+	            ((JPanel) board.getComponent(next)).remove(0);
+	            ((JPanel) board.getComponent(next)).
+	            add(new JLabel(new ImageIcon(pawnBImg)));
+	        }
+
+	        next = BOARD_SIZE - 1;
+	        ((JPanel) board.getComponent(next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(rookWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(horseWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(bishopWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(queenWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(kingWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(bishopWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(horseWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next--)).
+	        add(new JLabel(new ImageIcon(rookWImg)));
+	        for (int i = 0; i < COLS; ++i, --next) {
+	            ((JPanel) board.getComponent(next)).remove(0);
+	            ((JPanel) board.getComponent(next)).
+	            add(new JLabel(new ImageIcon(pawnWImg)));
+	        }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+>>>>>>> master
         setupMenus();
     }
 
@@ -252,6 +404,11 @@ ActionListener, MouseListener {
         // create open... item menu
         rulesItem = new JMenuItem("Rules");
         rulesItem.addActionListener(this);
+        
+        // create restart menu item
+        restartItem = new JMenuItem("Restart");
+        restartItem.addActionListener(this);
+
 
         // create restart menu item
         restartItem = new JMenuItem("Restart");
@@ -296,8 +453,12 @@ ActionListener, MouseListener {
         if (e.getSource() == quitItem) {
             System.exit(1);
         }
+<<<<<<< HEAD
         // user selects restart
         if (e.getSource() == restartItem) {
+=======
+        if (e.getSource() == restartItem){
+>>>>>>> master
             resetBoard();
         }
     }
@@ -333,6 +494,7 @@ ActionListener, MouseListener {
         // if a square is not currently selected
         if (!selected) {
             if (!Board.getBoard().isEmpty(x, y)) {
+<<<<<<< HEAD
                 if (Board.getBoard().getTurn() == WHITE && Board.getBoard().getPiece(x, y).getColor() == WHITE) {
 
                     // set border to blue
@@ -349,6 +511,24 @@ ActionListener, MouseListener {
                     // set currently selected square
                     selectedSpace = (JPanel) e.getComponent();
                 }
+=======
+            	if(Board.getBoard().getTurn() == WHITE && Board.getBoard().getPiece(x, y).getColor() == WHITE) {
+            		// set border to blue
+                    ((JPanel) e.getComponent()).setBorder(
+                            new LineBorder(Color.BLUE, 2));
+                    selected = true;
+                    // set currently selected square
+                    selectedSpace = (JPanel) e.getComponent();
+				}
+				else if(Board.getBoard().getTurn() == BLACK && Board.getBoard().getPiece(x, y).getColor() == BLACK) {
+					// set border to blue
+	                ((JPanel) e.getComponent()).setBorder(
+	                        new LineBorder(Color.BLUE, 2));
+	                selected = true;
+	                // set currently selected square
+	                selectedSpace = (JPanel) e.getComponent();
+				}
+>>>>>>> master
             }
         } else if (selected) {
             // calculate (x,y) location of previous selected square
@@ -422,7 +602,7 @@ ActionListener, MouseListener {
     	
     	/* Ask user which piece they would like to upgrade to using a pop-up window */
     	JFrame frame = new JFrame();
-    	ImageIcon icon = new ImageIcon("PawnB.png");
+    	ImageIcon icon = new ImageIcon(pawnBImg);
     	Object[] possibilities = {"Queen", "Rook", "Knight", "Bishop"};
     	String s = (String) JOptionPane.showInputDialog(frame, "Which piece would you like to upgrade to?",
     	                    "Pawn Promotion", JOptionPane.PLAIN_MESSAGE, icon, possibilities, "Queen");
@@ -440,36 +620,36 @@ ActionListener, MouseListener {
     	case "Queen":
     		piece = new Queen(x, y, color);
     	    if (color == WHITE) {
-    	    	p.add(new JLabel(new ImageIcon("QueenW.png")));
+    	    	p.add(new JLabel(new ImageIcon(queenWImg)));
     	    } else {
-    	    	p.add(new JLabel(new ImageIcon("QueenB.png")));
+    	    	p.add(new JLabel(new ImageIcon(queenBImg)));
     	    }
     	    break;
     	    	
     	case "Rook":
     	    piece = new Rook(x, y, color);
     	    if (color == WHITE) {
-    	    	p.add(new JLabel(new ImageIcon("RookW.png")));
+    	    	p.add(new JLabel(new ImageIcon(rookWImg)));
     	    } else {
-    	    	p.add(new JLabel(new ImageIcon("RookB.png")));
+    	    	p.add(new JLabel(new ImageIcon(rookBImg)));
     	    }
     	    break;
     	    	
     	case "Knight":
     	    piece = new Knight(x, y, color);
     	    if (color == WHITE) {
-    	    	p.add(new JLabel(new ImageIcon("HorseW.png")));
+    	    	p.add(new JLabel(new ImageIcon(horseWImg)));
     	    } else {
-    	    	p.add(new JLabel(new ImageIcon("HorseB.png")));
+    	    	p.add(new JLabel(new ImageIcon(horseBImg)));
     	    }
     	    break;
     	    	
     	case "Bishop":
     	    piece = new Bishop(x, y, color);
     	    if (color == WHITE) {
-    	    	p.add(new JLabel(new ImageIcon("BishopW.png")));
+    	    	p.add(new JLabel(new ImageIcon(bishopWImg)));
     	    } else {
-    	    	p.add(new JLabel(new ImageIcon("BishopB.png")));
+    	    	p.add(new JLabel(new ImageIcon(bishopBImg)));
     	    }
     	    break;
     	    	
@@ -509,34 +689,34 @@ ActionListener, MouseListener {
 
         if (getBoard.getPiece(x, y).getColor() == BLACK) {
             if (getBoard.getPiece(x, y) instanceof Pawn) {
-                moveTo.add(new JLabel(new ImageIcon("pawnB.png")));
+                moveTo.add(new JLabel(new ImageIcon(pawnBImg)));
             } else if (getBoard.getPiece(x, y) instanceof Rook) {
-                moveTo.add(new JLabel(new ImageIcon("rookB.png")));
+                moveTo.add(new JLabel(new ImageIcon(rookBImg)));
             } else if (getBoard.getPiece(x, y) instanceof Queen) {
-                moveTo.add(new JLabel(new ImageIcon("queenB.png")));
+                moveTo.add(new JLabel(new ImageIcon(queenBImg)));
             } else if (getBoard.getPiece(x, y) instanceof King) {
-                moveTo.add(new JLabel(new ImageIcon("kingB.png")));
+                moveTo.add(new JLabel(new ImageIcon(kingWImg)));
                 bKing = moveTo;
             } else if (getBoard.getPiece(x, y) instanceof Knight) {
-                moveTo.add(new JLabel(new ImageIcon("horseB.png")));
+                moveTo.add(new JLabel(new ImageIcon(horseBImg)));
             } else if (getBoard.getPiece(x, y) instanceof Bishop) {
-                moveTo.add(new JLabel(new ImageIcon("bishopB.png")));
+                moveTo.add(new JLabel(new ImageIcon(bishopBImg)));
             }
         }
         if (getBoard.getPiece(x, y).getColor() == WHITE) {
             if (getBoard.getPiece(x, y) instanceof Pawn) {
-                moveTo.add(new JLabel(new ImageIcon("pawnW.png")));
+                moveTo.add(new JLabel(new ImageIcon(pawnWImg)));
             } else if (getBoard.getPiece(x, y) instanceof Rook) {
-                moveTo.add(new JLabel(new ImageIcon("rookW.png")));
+                moveTo.add(new JLabel(new ImageIcon(rookWImg)));
             } else if (getBoard.getPiece(x, y) instanceof Queen) {
-                moveTo.add(new JLabel(new ImageIcon("queenW.png")));
+                moveTo.add(new JLabel(new ImageIcon(queenWImg)));
             } else if (getBoard.getPiece(x, y) instanceof King) {
-                moveTo.add(new JLabel(new ImageIcon("kingW.png")));
+                moveTo.add(new JLabel(new ImageIcon(kingWImg)));
                 wKing = moveTo;
             } else if (getBoard.getPiece(x, y) instanceof Knight) {
-                moveTo.add(new JLabel(new ImageIcon("horseW.png")));
+                moveTo.add(new JLabel(new ImageIcon(horseWImg)));
             } else if (getBoard.getPiece(x, y) instanceof Bishop) {
-                moveTo.add(new JLabel(new ImageIcon("bishopW.png")));
+                moveTo.add(new JLabel(new ImageIcon(bishopWImg)));
             }
         }
         board.revalidate();
@@ -553,22 +733,22 @@ ActionListener, MouseListener {
         if (p.getColor() == BLACK) {
             if (p instanceof Pawn) {
                 ((JPanel) bJail.getComponent(bJailCount)).remove(0);
-                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon("pawnB.png")));
+                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon(pawnBImg)));
             } else if (p instanceof Rook) {
                 ((JPanel) bJail.getComponent(bJailCount)).remove(0);
-                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon("rookB.png")));
+                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon(rookBImg)));
             } else if (p instanceof Queen) {
                 ((JPanel) bJail.getComponent(bJailCount)).remove(0);
-                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon("Queen.png")));
+                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon(queenBImg)));
             } else if (p instanceof King) {
                 ((JPanel) bJail.getComponent(bJailCount)).remove(0);
-                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon("kingB.png")));
+                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon(kingBImg)));
             } else if (p instanceof Knight) {
                 ((JPanel) bJail.getComponent(bJailCount)).remove(0);
-                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon("horseB.png")));
+                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon(horseBImg)));
             } else if (p instanceof Bishop) {
                 ((JPanel) bJail.getComponent(bJailCount)).remove(0);
-                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon("bishopB.png")));
+                ((JPanel) bJail.getComponent(bJailCount)).add(new JLabel(new ImageIcon(bishopBImg)));
             }
             bJailCount++;
             bJail.revalidate();
@@ -576,22 +756,22 @@ ActionListener, MouseListener {
         } else if (p.getColor() == WHITE) {
             if (p instanceof Pawn) {
                 ((JPanel) wJail.getComponent(wJailCount)).remove(0);
-                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon("pawnW.png")));
+                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon(pawnWImg)));
             } else if (p instanceof Rook) {
                 ((JPanel) wJail.getComponent(wJailCount)).remove(0);
-                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon("rookW.png")));
+                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon(rookWImg)));
             } else if (p instanceof Queen) {
                 ((JPanel) wJail.getComponent(wJailCount)).remove(0);
-                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon("queenW.png")));
+                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon(queenWImg)));
             } else if (p instanceof King) {
                 ((JPanel) wJail.getComponent(wJailCount)).remove(0);
-                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon("kingW.png")));
+                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon(kingWImg)));
             } else if (p instanceof Knight) {
                 ((JPanel) wJail.getComponent(wJailCount)).remove(0);
-                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon("horseW.png")));
+                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon(horseWImg)));
             } else if (p instanceof Bishop) {
                 ((JPanel) wJail.getComponent(wJailCount)).remove(0);
-                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon("bishopW.png")));
+                ((JPanel) wJail.getComponent(wJailCount)).add(new JLabel(new ImageIcon(bishopWImg)));
             }
             wJailCount++;
             wJail.revalidate();
@@ -649,16 +829,28 @@ ActionListener, MouseListener {
         // TODO Auto-generated method stub
     }
     
+<<<<<<< HEAD
     private void resetBoard() {
-        ChessGUI gui = new ChessGUI();
-        pane.add(board);
-        gui.add(pane);
-        gui.setSize(GUI_SIZE, GUI_SIZE);
-        gui.setTitle("The Game of Chess");
-        gui.getContentPane().setPreferredSize(new Dimension(PANE_SIZE, PANE_SIZE));
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setVisible(true);
+    	for(int next = 0; next< BOARD_SIZE; next++) {
+    		if((JPanel) board.getComponent(next) != null){
+    			((JPanel) board.getComponent(next)).remove(0);
+    		}
+    	}
         Board.getBoard().resetBoard();
     }
 
 }
+=======
+    static void resetBoard() {
+		ChessGUI gui = new ChessGUI();
+    	gui.pane.add(gui.board);
+		gui.add(gui.pane);
+		gui.setSize(1000, 1000);
+		gui.setTitle("The Game of Chess");
+		gui.getContentPane().setPreferredSize(new Dimension(600,600));
+		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gui.setVisible(true);
+		Board.getBoard().resetBoard();
+	}
+}
+>>>>>>> master
