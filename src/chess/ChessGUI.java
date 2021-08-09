@@ -11,8 +11,12 @@ import static chess.Constants.ROW_7;
 import static chess.Constants.COLS;
 import static chess.Constants.COL_4;
 
+<<<<<<< HEAD
 
 import javax.swing.GroupLayout;
+=======
+import javax.imageio.ImageIO;
+>>>>>>> master
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,9 +43,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+<<<<<<< HEAD
 import java.net.URL;
 
 
+=======
+import java.io.File;
+import java.io.IOException;
+>>>>>>> master
 
 public class ChessGUI extends JFrame implements
 ActionListener, MouseListener {
@@ -112,10 +121,17 @@ ActionListener, MouseListener {
     private JMenu fileMenu;
 
     /** Menu item to quit the game. */
+<<<<<<< HEAD
     private static JMenuItem quitItem;
 
     /** Menu item to restart the game. */
     private JMenuItem restartItem;
+=======
+    private JMenuItem quitItem;
+    
+    /** Menu item to restart the game. */
+    JMenuItem restartItem;
+>>>>>>> master
 
     /** Menu item to view the rules of the game. */
     private JMenuItem rulesItem;
@@ -183,6 +199,7 @@ ActionListener, MouseListener {
      * @param args
      */
     public static void main(final String[] args) {
+<<<<<<< HEAD
         ChessGUI gui = new ChessGUI();
 
         wJail.setPreferredSize(new Dimension( 2*SQUARE_SIZE, 8*SQUARE_SIZE));
@@ -192,6 +209,11 @@ ActionListener, MouseListener {
         pane.add(bJail);
         
         gui.add(pane);
+=======
+    	ChessGUI gui = new ChessGUI();
+        gui.pane.add(gui.board);
+        gui.add(gui.pane);
+>>>>>>> master
         gui.setSize(GUI_SIZE, GUI_SIZE);
         gui.setTitle("The Game of Chess");
         gui.getContentPane().setPreferredSize(new Dimension(PANE_SIZE, PANE_SIZE));
@@ -225,6 +247,7 @@ ActionListener, MouseListener {
             board.add(label, n);
             n++;
         }
+<<<<<<< HEAD
         int next = 0;
         
         ((JPanel) board.getComponent(next)).remove(0);
@@ -273,6 +296,100 @@ ActionListener, MouseListener {
         }
         
         setupJails();
+=======
+        
+        String rookB = "rookB.png";
+        String rookW = "rookW.png";
+        String bishopB = "bishopB.png";
+        String bishopW = "bishopW.png";
+        String horseB = "horseB.png";
+        String horseW = "horseW.png";
+        String kingB = "kingB.png";
+        String kingW = "kingW.png";
+        String pawnB = "pawnB.png";
+        String pawnW = "pawnW.png";
+        String queenB = "queenB.png";
+        String queenW = "queenW.png";
+        try {
+        	int next = 0;
+			BufferedImage rookBImg = ImageIO.read(new File(rookB));
+			BufferedImage rookWImg = ImageIO.read(new File(rookW));
+			BufferedImage bishopBImg = ImageIO.read(new File(bishopB));
+			BufferedImage bishopWImg = ImageIO.read(new File(bishopW));
+			BufferedImage horseBImg = ImageIO.read(new File(horseB));
+			BufferedImage horseWImg = ImageIO.read(new File(horseW));
+			BufferedImage kingBImg = ImageIO.read(new File(kingB));
+			BufferedImage kingWImg = ImageIO.read(new File(kingW));
+			BufferedImage pawnBImg = ImageIO.read(new File(pawnB));
+			BufferedImage pawnWImg = ImageIO.read(new File(pawnW));
+			BufferedImage queenBImg = ImageIO.read(new File(queenB));
+			BufferedImage queenWImg = ImageIO.read(new File(queenW));
+			
+			((JPanel) board.getComponent(next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(rookBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(horseBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(bishopBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(kingBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(queenBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(bishopBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(horseBImg)));
+	        ((JPanel) board.getComponent(++next)).remove(0);
+	        ((JPanel) board.getComponent(next++)).
+	        add(new JLabel(new ImageIcon(rookBImg)));
+	        for (int i = 0; i < COLS; ++i, ++next) {
+	            ((JPanel) board.getComponent(next)).remove(0);
+	            ((JPanel) board.getComponent(next)).
+	            add(new JLabel(new ImageIcon(pawnBImg)));
+	        }
+
+	        next = BOARD_SIZE - 1;
+	        ((JPanel) board.getComponent(next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(rookWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(horseWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(bishopWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(queenWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(kingWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(bishopWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next)).
+	        add(new JLabel(new ImageIcon(horseWImg)));
+	        ((JPanel) board.getComponent(--next)).remove(0);
+	        ((JPanel) board.getComponent(next--)).
+	        add(new JLabel(new ImageIcon(rookWImg)));
+	        for (int i = 0; i < COLS; ++i, --next) {
+	            ((JPanel) board.getComponent(next)).remove(0);
+	            ((JPanel) board.getComponent(next)).
+	            add(new JLabel(new ImageIcon(pawnWImg)));
+	        }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+>>>>>>> master
         setupMenus();
     }
 
@@ -285,6 +402,11 @@ ActionListener, MouseListener {
         // create open... item menu
         rulesItem = new JMenuItem("Rules");
         rulesItem.addActionListener(this);
+        
+        // create restart menu item
+        restartItem = new JMenuItem("Restart");
+        restartItem.addActionListener(this);
+
 
         // create restart menu item
         restartItem = new JMenuItem("Restart");
@@ -329,8 +451,12 @@ ActionListener, MouseListener {
         if (e.getSource() == quitItem) {
             System.exit(1);
         }
+<<<<<<< HEAD
         // user selects restart
         if (e.getSource() == restartItem) {
+=======
+        if (e.getSource() == restartItem){
+>>>>>>> master
             resetBoard();
         }
     }
@@ -366,6 +492,7 @@ ActionListener, MouseListener {
         // if a square is not currently selected
         if (!selected) {
             if (!Board.getBoard().isEmpty(x, y)) {
+<<<<<<< HEAD
                 if (Board.getBoard().getTurn() == WHITE && Board.getBoard().getPiece(x, y).getColor() == WHITE) {
 
                     // set border to blue
@@ -382,6 +509,24 @@ ActionListener, MouseListener {
                     // set currently selected square
                     selectedSpace = (JPanel) e.getComponent();
                 }
+=======
+            	if(Board.getBoard().getTurn() == WHITE && Board.getBoard().getPiece(x, y).getColor() == WHITE) {
+            		// set border to blue
+                    ((JPanel) e.getComponent()).setBorder(
+                            new LineBorder(Color.BLUE, 2));
+                    selected = true;
+                    // set currently selected square
+                    selectedSpace = (JPanel) e.getComponent();
+				}
+				else if(Board.getBoard().getTurn() == BLACK && Board.getBoard().getPiece(x, y).getColor() == BLACK) {
+					// set border to blue
+	                ((JPanel) e.getComponent()).setBorder(
+	                        new LineBorder(Color.BLUE, 2));
+	                selected = true;
+	                // set currently selected square
+	                selectedSpace = (JPanel) e.getComponent();
+				}
+>>>>>>> master
             }
         } else if (selected) {
             // calculate (x,y) location of previous selected square
@@ -674,6 +819,7 @@ ActionListener, MouseListener {
         // TODO Auto-generated method stub
     }
     
+<<<<<<< HEAD
     private void resetBoard() {
     	for(int next = 0; next< BOARD_SIZE; next++) {
     		if((JPanel) board.getComponent(next) != null){
@@ -684,3 +830,17 @@ ActionListener, MouseListener {
     }
 
 }
+=======
+    static void resetBoard() {
+		ChessGUI gui = new ChessGUI();
+    	gui.pane.add(gui.board);
+		gui.add(gui.pane);
+		gui.setSize(1000, 1000);
+		gui.setTitle("The Game of Chess");
+		gui.getContentPane().setPreferredSize(new Dimension(600,600));
+		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gui.setVisible(true);
+		Board.getBoard().resetBoard();
+	}
+}
+>>>>>>> master
