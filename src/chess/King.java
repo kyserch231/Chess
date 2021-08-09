@@ -103,28 +103,25 @@ public class King extends Movable implements Piece {
     }
     
     /**
-     * @param color of king to check
-     * @return true if a piece has an opposite king in check
+     * @param x location king is to move to
+     * @param y location king is to move to
+     * @return true if move is going to put king in check
      */
  	public boolean moveIsChecked(int x, int y) {
  		
- 		if(this.getColor() == BLACK) {
+ 		if (this.getColor() == BLACK) {
 
- 			//System.out.println("xBlack = " + xBlack + " , yBlack = " + yBlack);
- 			
  			for (int i = 0; i < Board.getWhitePieces().size(); i++) {
  				if (Board.getWhitePieces().get(i).hasCheck(x, y)) {
- 							return true;
+ 					return true;
  				}
  			}
  			return false;
  		} else {
  			
- 			//System.out.println("xWhite = " + xWhite + " , yWhite = " + yWhite);
- 			
  			for (int i = 0; i < Board.getBlackPieces().size(); i++) {
  				if (Board.getBlackPieces().get(i).hasCheck(x, y)) {
- 						return true;
+ 					return true;
  				}
  			}
  			return false;			
@@ -135,7 +132,7 @@ public class King extends Movable implements Piece {
      * @param y location of opposite king
      * @return true if the piece has check on the opposite king
      */
-	public boolean hasCheck(int x, int y) {
+	public boolean hasCheck(final int x, final int y) {
 		if (getState() == INACTIVE) {
 			return false;
 		} else if (this.isValidMove(x, y)) {
