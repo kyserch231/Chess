@@ -1,6 +1,7 @@
 package chess;
 
 import static chess.Constants.BLACK;
+import static chess.Constants.ACTIVE;
 
 public class Movable {
 
@@ -71,5 +72,16 @@ public class Movable {
      */
     public void setState(final boolean a) {
         state = a;
+    }
+    
+    /**
+     * @return current state
+     */
+    public boolean getState() {
+    	return state;
+    }
+    
+    public boolean isActive() {
+    	return ACTIVE;
     }
 }

@@ -26,7 +26,7 @@ public class Knight extends Movable implements Piece {
      */
     public boolean isValidMove(final int x, final int y) {
 
-        if (Board.getBoard().getTurn() == getColor()) {
+        if (this.isActive()) {
 
             /*
              * Calculate the distances between
@@ -36,18 +36,11 @@ public class Knight extends Movable implements Piece {
             int disX = Math.abs(x - getPosX());
             int disY = Math.abs(y - getPosY());
 
-            if ((disX == 1 && disY == 2)
-                    || (disX == 2 && disY == 1)) {
+            if ((disX == 1 && disY == 2) || (disX == 2 && disY == 1)) {
                 if (Board.getBoard().isEmpty(x, y)) {
-                    Board.getBoard().togleTurn();
                     return true;
-                } else if (!Board.getBoard().isEmpty(x, y)
-                        && Board.getBoard().
-                        getColorAt(x, y)
-                        != getColor()) {
-
-                    Board.getBoard().getPiece(x, y).kill();
-                    Board.getBoard().togleTurn();
+                } else if (!Board.getBoard().isEmpty(x, y) && Board.getBoard().getColorAt(x, y) != getColor()) {
+                    //Board.getBoard().getPiece(x, y).kill();
                     return true;
                 }
             }
@@ -56,23 +49,46 @@ public class Knight extends Movable implements Piece {
     }
 
     /**
-     * Makes the move and returns true if success , otherwise false.
+     * Makes the move and a piece if one is being captured.
      * @param x
      * @param y
+     * @return captured that is being captured
      */
-    public void move(final int x, final int y) {
-        Board.getBoard().setToEmpty(
-                this.getPosX(),
-                this.getPosY());
+    public Piece move(final int x, final int y) {
+
+        Piece captured = null;
+
+        if (!Board.getBoard().isEmpty(x, y)) {
+            captured = Board.getBoard().getPiece(x, y);
+            Board.getBoard().getPiece(x, y).capture();
+        }
+
+        Board.getBoard().setToEmpty(this.getPosX(), this.getPosY());
         setPos(x, y);
         Board.getBoard().setPiece(this);
+
+        return captured;
     }
 
     /**
      * When a piece is killed by the opposite player,
      * the piece will become inactive.
      */
-    public void kill() {
+    public void capture() {
         setState(INACTIVE);
     }
+    
+    /**
+     * @param x location of opposite king
+     * @param y location of opposite king
+     * @return true if the piece has check on the opposite king
+     */
+	public boolean hasCheck(int x, int y) {
+		if (getState() == INACTIVE) {
+			return false;
+		} else if (this.isValidMove(x, y)) {
+			return true;
+		}
+		return false;
+	}
 }

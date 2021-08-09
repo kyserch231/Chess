@@ -43,7 +43,7 @@ public class Pawn extends Movable implements Piece {
 
         Board board = Board.getBoard();
 
-        if (board.getTurn() == getColor()) {
+        if (this.isActive()) {
 
             /*
              * Pawn can move two spaces up on first move,
@@ -53,38 +53,21 @@ public class Pawn extends Movable implements Piece {
             if (getColor() == BLACK) {
                 if (board.isEmpty(x, y) && disX == 0) {
                     if (hasMoved && disY == 1) {
-                        board.togleTurn();
                         return true;
-                    } else if (!hasMoved
-                        && disY == 2 || disY == 1) {
-                        board.togleTurn();
+                    } else if (!hasMoved && disY == 2 || disY == 1) {
                         return true;
                     }
-                } else if (disY == 1
-                        && Math.abs(disX) == 1
-                        && board.getColorAt(x, y)
-                        != getColor()) {
-                    board.getPiece(x, y).kill();
-                    board.togleTurn();
+                } else if (disY == 1 && Math.abs(disX) == 1 && board.getColorAt(x, y) != getColor() && !board.isEmpty(x, y)) {
                     return true;
                 }
             } else if (getColor() == WHITE) {
                 if (board.isEmpty(x, y) && disX == 0) {
                     if (hasMoved && disY == -1) {
-                        board.togleTurn();
                         return true;
-                    } else if (!hasMoved
-                        && disY == 2 * -1
-                        || disY == -1) {
-                        board.togleTurn();
+                    } else if (!hasMoved && disY == 2 * -1 || disY == -1) {
                         return true;
                     }
-                } else if (disY == -1
-                        && Math.abs(disX) == 1
-                        && board.getColorAt(x, y)
-                        != getColor()) {
-                    board.getPiece(x, y).kill();
-                    board.togleTurn();
+                } else if (disY == -1 && Math.abs(disX) == 1 && board.getColorAt(x, y) != getColor() && !board.isEmpty(x, y)) {
                     return true;
                 }
             }
@@ -93,24 +76,50 @@ public class Pawn extends Movable implements Piece {
     }
 
     /**
-     * Makes the move and returns true if success , otherwise false.
+     * Makes the move and a piece if one is being captured.
      * @param x
      * @param y
+     * @return captured that is being captured
      */
-    public void move(final int x, final int y) {
-        Board.getBoard().setToEmpty(
-                this.getPosX(),
-                this.getPosY());
+    public Piece move(final int x, final int y) {
+
+        Piece captured = null;
+
+        if (!Board.getBoard().isEmpty(x, y)) {
+            captured = Board.getBoard().getPiece(x, y);
+            Board.getBoard().getPiece(x, y).capture();
+        }
+
+        Board.getBoard().setToEmpty(this.getPosX(), this.getPosY());
         setPos(x, y);
         Board.getBoard().setPiece(this);
         hasMoved = true;
+
+        if (this.getPosY() == 0 || this.getPosY() == 7) {
+        	System.out.println("PAWN PROMOTION");
+        }
+        return captured;
     }
 
     /**
      * When a piece is killed by the opposite player,
      * the piece will become inactive.
      */
-    public void kill() {
+    public void capture() {
         setState(INACTIVE);
     }
+    
+    /**
+     * @param x location of opposite king
+     * @param y location of opposite king
+     * @return true if the piece has check on the opposite king
+     */
+	public boolean hasCheck(int x, int y) {
+		if (getState() == INACTIVE) {
+			return false;
+		} else if (this.isValidMove(x, y)) {
+			return true;
+		}
+		return false;
+	}
 }

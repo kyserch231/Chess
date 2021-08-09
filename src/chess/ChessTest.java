@@ -5,6 +5,21 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.assertFalse;
+import static chess.Constants.COL_0;
+import static chess.Constants.COL_1;
+import static chess.Constants.COL_2;
+import static chess.Constants.COL_3;
+import static chess.Constants.COL_4;
+import static chess.Constants.COL_5;
+import static chess.Constants.COL_6;
+import static chess.Constants.COL_7;
+import static chess.Constants.ROW_0;
+import static chess.Constants.ROW_2;
+import static chess.Constants.ROW_3;
+import static chess.Constants.ROW_4;
+import static chess.Constants.ROW_5;
+import static chess.Constants.ROW_6;
+import static chess.Constants.ROW_7;
 
 /*   -----------------------------------------------
  *  | 0,0 | 1,0 | 2,0 | 3,0 | 4,0 | 5,0 | 6,0 | 7,0 |
@@ -45,23 +60,23 @@ public class ChessTest {
     public void validMovesKing() {
 
         /* Move black knight for testing. */
-        assertTrue(Board.getBoard().getPiece(6, 0) instanceof Knight);
-        Board.getBoard().getPiece(6, 0).move(5, 2);
-        assertTrue(Board.getBoard().getPiece(5, 2) instanceof Knight);
-        Board.getBoard().getPiece(5, 2).move(4, 4);
-        assertTrue(Board.getBoard().getPiece(4, 4) instanceof Knight);
-        Board.getBoard().getPiece(4, 4).move(3, 6);
-        assertTrue(Board.getBoard().getPiece(3, 6) instanceof Knight);
+        assertTrue(Board.getBoard().getPiece(COL_6, ROW_0) instanceof Knight);
+        Board.getBoard().getPiece(COL_6, ROW_0).move(COL_5, ROW_2);
+        assertTrue(Board.getBoard().getPiece(COL_5, ROW_2) instanceof Knight);
+        Board.getBoard().getPiece(COL_5, ROW_2).move(COL_4, ROW_4);
+        assertTrue(Board.getBoard().getPiece(COL_4, ROW_4) instanceof Knight);
+        Board.getBoard().getPiece(COL_4, ROW_4).move(COL_3, ROW_6);
+        assertTrue(Board.getBoard().getPiece(COL_3, ROW_6) instanceof Knight);
 
         /* Test if killing black knight is valid. */
-        assertTrue(Board.getBoard().getPiece(3, 7).isValidMove(3, 6));
+        assertTrue(Board.getBoard().getPiece(COL_3, ROW_7).isValidMove(COL_3, ROW_6));
 
         /* Make move to kill black knight and switch turns so that king can make another move. */
-        Board.getBoard().getPiece(3, 7).move(3, 6);
+        Board.getBoard().getPiece(COL_3, ROW_7).move(COL_3, ROW_6);
         Board.getBoard().togleTurn();
 
         /* Test if moving to empty square is valid. */
-        assertTrue(Board.getBoard().getPiece(3, 6).isValidMove(3, 5));
+        assertTrue(Board.getBoard().getPiece(COL_3, ROW_6).isValidMove(COL_3, ROW_5));
     }
 
     /**
@@ -71,7 +86,7 @@ public class ChessTest {
     public void invalidMovesKing() {
 
         /* Test if selected square contains a piece of the same color. */
-        assertFalse(Board.getBoard().getPiece(3, 7).isValidMove(3, 6));
+        assertFalse(Board.getBoard().getPiece(COL_3, ROW_7).isValidMove(COL_3, ROW_6));
     }
 
     /**
@@ -81,24 +96,24 @@ public class ChessTest {
     public void validMovesQueen() {
 
         /* Move black knight for testing. */
-        assertTrue(Board.getBoard().getPiece(6, 0) instanceof Knight);
-        Board.getBoard().getPiece(6, 0).move(5, 2);
-        assertTrue(Board.getBoard().getPiece(5, 2) instanceof Knight);
-        Board.getBoard().getPiece(5, 2).move(4, 4);
-        assertTrue(Board.getBoard().getPiece(4, 4) instanceof Knight);
-        Board.getBoard().getPiece(4, 4).move(3, 6);
-        assertTrue(Board.getBoard().getPiece(3, 6) instanceof Knight);
+        assertTrue(Board.getBoard().getPiece(COL_6, ROW_0) instanceof Knight);
+        Board.getBoard().getPiece(COL_6, ROW_0).move(COL_5, ROW_2);
+        assertTrue(Board.getBoard().getPiece(COL_5, ROW_2) instanceof Knight);
+        Board.getBoard().getPiece(COL_5, ROW_2).move(COL_4, ROW_4);
+        assertTrue(Board.getBoard().getPiece(COL_4, ROW_4) instanceof Knight);
+        Board.getBoard().getPiece(COL_4, ROW_4).move(COL_3, ROW_6);
+        assertTrue(Board.getBoard().getPiece(COL_3, ROW_6) instanceof Knight);
 
         /* Test if killing black knight is valid. */
-        assertTrue(Board.getBoard().getPiece(4, 7).isValidMove(3, 6));
+        assertTrue(Board.getBoard().getPiece(COL_4, ROW_7).isValidMove(COL_3, ROW_6));
 
         /* Make move to kill black knight and switch turns so that king can make another move. */
-        Board.getBoard().getPiece(4, 7).move(3, 6);
+        Board.getBoard().getPiece(COL_4, ROW_7).move(COL_3, ROW_6);
 
         Board.getBoard().togleTurn();
 
         /* Test if moving to empty square is valid. */
-        assertTrue(Board.getBoard().getPiece(3, 6).isValidMove(3, 3));
+        assertTrue(Board.getBoard().getPiece(COL_3, ROW_6).isValidMove(COL_3, ROW_3));
     }
 
     /**
@@ -108,36 +123,36 @@ public class ChessTest {
     public void invalidMovesQueen() {
 
         /* Test if selected square contains a piece of the same color. */
-        assertFalse(Board.getBoard().getPiece(4, 7).isValidMove(4, 6));
+        assertFalse(Board.getBoard().getPiece(COL_4, ROW_7).isValidMove(COL_4, ROW_6));
 
         /* Test if top right move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(4, 7).isValidMove(6, 5));
+        assertFalse(Board.getBoard().getPiece(COL_4, ROW_7).isValidMove(COL_6, ROW_5));
 
         /* Test if top left move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(4, 7).isValidMove(1, 4));
+        assertFalse(Board.getBoard().getPiece(COL_4, ROW_7).isValidMove(COL_1, ROW_4));
 
         /* Test if up move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(4, 7).isValidMove(4, 4));
+        assertFalse(Board.getBoard().getPiece(COL_4, ROW_7).isValidMove(COL_4, ROW_4));
 
         Board.getBoard().togleTurn();
 
         /* Test if bottom right move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(4, 0).isValidMove(6, 2));
+        assertFalse(Board.getBoard().getPiece(COL_4, ROW_0).isValidMove(COL_6, ROW_2));
 
         /* Test if bottom left move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(4, 0).isValidMove(1, 3));
+        assertFalse(Board.getBoard().getPiece(COL_4, ROW_0).isValidMove(COL_1, ROW_3));
 
-        Board.getBoard().getPiece(6, 0).move(5, 2);
-        Board.getBoard().getPiece(1, 0).move(2, 2);
+        Board.getBoard().getPiece(COL_6, ROW_0).move(COL_5, ROW_2);
+        Board.getBoard().getPiece(COL_1, ROW_0).move(COL_2, ROW_2);
 
         /* Test if right across move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(4, 0).isValidMove(6, 0));
+        assertFalse(Board.getBoard().getPiece(COL_4, ROW_0).isValidMove(COL_6, ROW_0));
 
         /* Test if left across move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(4, 0).isValidMove(1, 0));
+        assertFalse(Board.getBoard().getPiece(COL_4, ROW_0).isValidMove(COL_1, ROW_0));
 
         /* Test if down move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(4, 0).isValidMove(4, 4));
+        assertFalse(Board.getBoard().getPiece(COL_4, ROW_0).isValidMove(COL_4, ROW_4));
 
     }
 
@@ -148,21 +163,21 @@ public class ChessTest {
     public void invalidMovesBishop() {
 
         /* Test if selected square contains a piece of the same color. */
-        assertFalse(Board.getBoard().getPiece(5, 7).isValidMove(4, 6));
+        assertFalse(Board.getBoard().getPiece(COL_5, ROW_7).isValidMove(COL_4, ROW_6));
 
         /* Test if top right move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(5, 7).isValidMove(7, 5));
+        assertFalse(Board.getBoard().getPiece(COL_5, ROW_7).isValidMove(COL_7, ROW_5));
 
         /* Test if top left move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(5, 7).isValidMove(3, 5));
+        assertFalse(Board.getBoard().getPiece(COL_5, ROW_7).isValidMove(COL_3, ROW_5));
 
         Board.getBoard().togleTurn();
 
         /* Test if bottom right move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(5, 0).isValidMove(7, 2));
+        assertFalse(Board.getBoard().getPiece(COL_5, ROW_0).isValidMove(COL_7, ROW_2));
 
         /* Test if bottom left move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(5, 0).isValidMove(3, 2));
+        assertFalse(Board.getBoard().getPiece(COL_5, ROW_0).isValidMove(COL_3, ROW_2));
     }
 
     /**
@@ -172,24 +187,24 @@ public class ChessTest {
     public void invalidMovesRook() {
 
         /* Test if selected square contains a piece of the same color */
-        assertFalse(Board.getBoard().getPiece(0, 7).isValidMove(1, 7));
+        assertFalse(Board.getBoard().getPiece(COL_0, ROW_7).isValidMove(COL_1, ROW_7));
 
         /* Test if up move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(0, 7).isValidMove(0, 4));
+        assertFalse(Board.getBoard().getPiece(COL_0, ROW_7).isValidMove(COL_0, ROW_4));
 
         /* Move nights */
-        Board.getBoard().getPiece(6, 0).move(5, 2);
-        Board.getBoard().getPiece(1, 0).move(2, 2);
+        Board.getBoard().getPiece(COL_6, ROW_0).move(COL_5, ROW_2);
+        Board.getBoard().getPiece(COL_1, ROW_0).move(COL_2, ROW_2);
 
         /* Test if right move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(0, 7).isValidMove(6, 7));
+        assertFalse(Board.getBoard().getPiece(COL_0, ROW_7).isValidMove(COL_6, ROW_7));
 
         /* Test if left move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(7, 7).isValidMove(1, 7));
+        assertFalse(Board.getBoard().getPiece(COL_7, ROW_7).isValidMove(COL_1, ROW_7));
 
         Board.getBoard().togleTurn();
 
         /* Test if down move with piece in between is invalid */
-        assertFalse(Board.getBoard().getPiece(0, 0).isValidMove(0, 2));
+        assertFalse(Board.getBoard().getPiece(COL_0, ROW_0).isValidMove(COL_0, ROW_2));
     }
 }

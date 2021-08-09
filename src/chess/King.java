@@ -1,6 +1,7 @@
 package chess;
 
 import static chess.Constants.ACTIVE;
+import static chess.Constants.BLACK;
 import static chess.Constants.INACTIVE;
 
 import javax.swing.JFrame;
@@ -29,7 +30,7 @@ public class King extends Movable implements Piece {
      */
     public boolean isValidMove(final int x, final int y) {
 
-        if (Board.getBoard().getTurn() == getColor()) {
+        if (this.isActive()) {
             /*
              * Calculate the distances
              * between selected destination
@@ -39,32 +40,22 @@ public class King extends Movable implements Piece {
             int disY = Math.abs(y - getPosY());
 
             // king can move one space up, back, or diagonally
-            if ((disX == 1 && disY == 0)
-                    || (disX == 0 && disY == 1)
-                    || (disX == 1 && disY == 1)) {
-                /*
-                 * If selected location contains
-                 * another piece in the same color,
-                 * move is invalid.
-                 */
-                if (Board.getBoard().
-                        getColorAt(x, y)
-                        == getColor()) {
+            if ((disX == 1 && disY == 0) || (disX == 0 && disY == 1) || (disX == 1 && disY == 1)) {
+
+            	/* If selected location is checked by a piece in the opposite color, move is invalid. */
+            	if (moveIsChecked(x, y)) {
+            		return false;
+            	}
+            	
+                /* If selected location contains another piece in the same color, move is invalid. */
+                if (Board.getBoard().getColorAt(x, y) == getColor()) {
                     return false;
                 }
-                /*
-                 * If selected location contains a piece in the
-                 * opposite color, then that piece is killed.
-                 */
-                if (Board.getBoard().getColorAt(x, y)
-                        != getColor()
-                        && !Board.getBoard().
-                        isEmpty(x, y)) {
-                    Board.getBoard().getPiece(x, y).kill();
-                    Board.getBoard().togleTurn();
+                /* If selected location contains a piece in the opposite color, then that piece is killed. */
+                if (Board.getBoard().getColorAt(x, y) != getColor() && !Board.getBoard().isEmpty(x, y)) {
+                    //Board.getBoard().getPiece(x, y).kill();
                     return true;
                 } else if (Board.getBoard().isEmpty(x, y)) {
-                    Board.getBoard().togleTurn();
                     return true;
                 }
             }
@@ -73,26 +64,83 @@ public class King extends Movable implements Piece {
     }
 
     /**
-     * Makes the move and returns true if success , otherwise false.
+     * Makes the move and a piece if one is being captured.
      * @param x
      * @param y
+     * @return captured that is being captured
      */
-    public void move(final int x, final int y) {
-        Board.getBoard().setToEmpty(
-                this.getPosX(),
-                this.getPosY());
+    public Piece move(final int x, final int y) {
+
+        Piece captured = null;
+
+        if (!Board.getBoard().isEmpty(x, y)) {
+            captured = Board.getBoard().getPiece(x, y);
+            Board.getBoard().getPiece(x, y).capture();
+        }
+
+        Board.getBoard().setToEmpty(this.getPosX(), this.getPosY());
         setPos(x, y);
         Board.getBoard().setPiece(this);
+
+        return captured;
     }
 
     /**
      * When a piece is killed by the opposite player,
      * the piece will become inactive.
      */
-    public void kill() {
+    public void capture() {
         // pop up of who won
         setState(INACTIVE);
-        JFrame frame = new JFrame("JOptionPane showMessageDialog example");
-		JOptionPane.showMessageDialog(frame, "You have won, use the file tab to play again!");
+        int restart =  JOptionPane.showConfirmDialog(null,
+                "Do you want to restart?", "You Win!", JOptionPane.YES_NO_OPTION);
+
+          if (restart == JOptionPane.YES_OPTION) {
+              
+          } else if (restart == JOptionPane.NO_OPTION) {
+        	  System.exit(1);
+          }
     }
+    
+    /**
+     * @param color of king to check
+     * @return true if a piece has an opposite king in check
+     */
+ 	public boolean moveIsChecked(int x, int y){
+ 		
+ 		if(this.getColor() == BLACK){
+
+ 			//System.out.println("xBlack = " + xBlack + " , yBlack = " + yBlack);
+ 			
+ 			for (int i = 0; i < Board.getWhitePieces().size(); i++) {
+ 				if (Board.getWhitePieces().get(i).hasCheck(x, y)) {
+ 							return true;
+ 				}
+ 			}
+ 			return false;
+ 		}else {
+ 			
+ 			//System.out.println("xWhite = " + xWhite + " , yWhite = " + yWhite);
+ 			
+ 			for (int i = 0; i < Board.getBlackPieces().size(); i++) {
+ 				if (Board.getBlackPieces().get(i).hasCheck(x, y)) {
+ 						return true;
+ 				}
+ 			}
+ 			return false;			
+ 		}
+ 	}
+    /**
+     * @param x location of opposite king
+     * @param y location of opposite king
+     * @return true if the piece has check on the opposite king
+     */
+	public boolean hasCheck(int x, int y) {
+		if (getState() == INACTIVE) {
+			return false;
+		} else if (this.isValidMove(x, y)) {
+			return true;
+		}
+		return false;
+	}
 }
