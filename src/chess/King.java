@@ -44,7 +44,7 @@ public class King extends Movable implements Piece {
 
             	/* If selected location is checked by a piece in the opposite color, move is invalid. */
             	if (moveIsChecked(x, y)) {
-            		return false;
+            		//return false;
             	}
             	
                 /* If selected location contains another piece in the same color, move is invalid. */
@@ -106,9 +106,9 @@ public class King extends Movable implements Piece {
      * @param color of king to check
      * @return true if a piece has an opposite king in check
      */
- 	public boolean moveIsChecked(int x, int y){
+ 	public boolean moveIsChecked(int x, int y) {
  		
- 		if(this.getColor() == BLACK){
+ 		if(this.getColor() == BLACK) {
 
  			//System.out.println("xBlack = " + xBlack + " , yBlack = " + yBlack);
  			
@@ -118,7 +118,7 @@ public class King extends Movable implements Piece {
  				}
  			}
  			return false;
- 		}else {
+ 		} else {
  			
  			//System.out.println("xWhite = " + xWhite + " , yWhite = " + yWhite);
  			

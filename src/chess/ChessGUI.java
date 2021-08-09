@@ -195,8 +195,8 @@ ActionListener, MouseListener {
      * @param args
      */
     public static void main(final String[] args) {
-        wJail.setPreferredSize(new Dimension( 2*SQUARE_SIZE, 8*SQUARE_SIZE));
-        bJail.setPreferredSize(new Dimension( 2*SQUARE_SIZE, 8*SQUARE_SIZE));
+        wJail.setPreferredSize(new Dimension(2 * SQUARE_SIZE, 8 * SQUARE_SIZE));
+        bJail.setPreferredSize(new Dimension(2 * SQUARE_SIZE, 8 * SQUARE_SIZE));
 
     	ChessGUI gui = new ChessGUI();
     	gui.pane.add(gui.wJail);
@@ -242,7 +242,7 @@ ActionListener, MouseListener {
         int next = 0;
         
         ((JPanel) board.getComponent(next)).remove(0);
-        ((JPanel) board.getComponent(next)).add(new JLabel( new ImageIcon(rookBImg)));
+        ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(rookBImg)));
         ((JPanel) board.getComponent(++next)).remove(0);
         ((JPanel) board.getComponent(next)).add(new JLabel(new ImageIcon(horseBImg)));
         ((JPanel) board.getComponent(++next)).remove(0);
@@ -349,7 +349,7 @@ ActionListener, MouseListener {
             System.exit(1);
         }
         // user selects restart
-        if (e.getSource() == restartItem){
+        if (e.getSource() == restartItem) {
 
             resetBoard();
         }
@@ -411,8 +411,7 @@ ActionListener, MouseListener {
                     selected = true;
                     // set currently selected square
                     selectedSpace = (JPanel) e.getComponent();
-				}
-				else if(Board.getBoard().getTurn() == BLACK && Board.getBoard().getPiece(x, y).getColor() == BLACK) {
+				} else if(Board.getBoard().getTurn() == BLACK && Board.getBoard().getPiece(x, y).getColor() == BLACK) {
 					// set border to blue
 	                ((JPanel) e.getComponent()).setBorder(
 	                        new LineBorder(Color.BLUE, 2));
@@ -423,6 +422,9 @@ ActionListener, MouseListener {
 
             }
         } else if (selected) {
+        	
+        	inCheck = false;
+        	
             // calculate (x,y) location of previous selected square
             int xSel = selectedSpace.getX() / SQUARE_SIZE + 1;
             if (selectedSpace.getX() == 0) {
@@ -723,8 +725,8 @@ ActionListener, MouseListener {
     
 
     private void resetBoard() {
-    	for(int next = 0; next< BOARD_SIZE; next++) {
-    		if((JPanel) board.getComponent(next) != null){
+    	for(int next = 0; next < BOARD_SIZE; next++) {
+    		if((JPanel) board.getComponent(next) != null) {
     			((JPanel) board.getComponent(next)).remove(0);
     		}
     	}
