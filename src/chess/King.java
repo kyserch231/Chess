@@ -44,7 +44,7 @@ public class King extends Movable implements Piece {
 
             	/* If selected location is checked by a piece in the opposite color, move is invalid. */
             	if (moveIsChecked(x, y)) {
-            		//return false;
+            		return false;
             	}
             	
                 /* If selected location contains another piece in the same color, move is invalid. */

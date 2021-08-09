@@ -589,7 +589,7 @@ ActionListener, MouseListener {
             } else if (getBoard.getPiece(x, y) instanceof Queen) {
                 moveTo.add(new JLabel(new ImageIcon(queenBImg)));
             } else if (getBoard.getPiece(x, y) instanceof King) {
-                moveTo.add(new JLabel(new ImageIcon(kingWImg)));
+                moveTo.add(new JLabel(new ImageIcon(kingBImg)));
                 bKing = moveTo;
             } else if (getBoard.getPiece(x, y) instanceof Knight) {
                 moveTo.add(new JLabel(new ImageIcon(horseBImg)));
@@ -713,6 +713,9 @@ ActionListener, MouseListener {
     	wJail.removeAll();
     	bJail.removeAll();
     	
+    	wJailCount = 0;
+    	bJailCount = 0;
+    	
     	int n = 0;
         int a = 1;
         int b = 0;
@@ -788,6 +791,7 @@ ActionListener, MouseListener {
         board.repaint();
         pane.revalidate();
         pane.repaint();
+        setupJails();
         Board.getBoard().resetBoard();
     }
 

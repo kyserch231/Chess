@@ -211,7 +211,7 @@ public class Board {
     * @param color of king to check
     * @return true if a piece has an opposite king in check
     */
-	public static boolean isCheck(int color) {
+	public static boolean isCheck(int color){
 		
 		if (color == BLACK) {
 			
@@ -318,6 +318,40 @@ public class Board {
                 chessBoard[i][j] = null;
             }
         }
-        initializeBoard();
+        blackPieces.removeAll(blackPieces);
+        blackPieces.add(new Rook(COL_0, ROW_0, BLACK));
+        blackPieces.add(new Knight(COL_1, ROW_0, BLACK));
+        blackPieces.add(new Bishop(COL_2, ROW_0, BLACK));
+        blackPieces.add(new King(COL_3, ROW_0, BLACK));
+        blackPieces.add(new Queen(COL_4, ROW_0, BLACK));
+        blackPieces.add(new Bishop(COL_5, ROW_0, BLACK));
+        blackPieces.add(new Knight(COL_6, ROW_0, BLACK));
+        blackPieces.add(new Rook(COL_7, ROW_0, BLACK));
+
+        for (int i = 0; i < COLS; i++) {
+            blackPieces.add(new Pawn(i, ROW_1, BLACK));
+        }
+        whitePieces.removeAll(whitePieces);
+        whitePieces.add(new Rook(COL_0, ROW_7, WHITE));
+        whitePieces.add(new Knight(COL_1, ROW_7, WHITE));
+        whitePieces.add(new Bishop(COL_2, ROW_7, WHITE));
+        whitePieces.add(new King(COL_3, ROW_7, WHITE));
+        whitePieces.add(new Queen(COL_4, ROW_7, WHITE));
+        whitePieces.add(new Bishop(COL_5, ROW_7, WHITE));
+        whitePieces.add(new Knight(COL_6, ROW_7, WHITE));
+        whitePieces.add(new Rook(COL_7, ROW_7, WHITE));
+
+        for (int i = 0; i < COLS; i++) {
+            whitePieces.add(new Pawn(i, ROW_6, WHITE));
+        }
+
+        chessBoard = new Piece[ROWS + 1][COLS + 1];
+        for (Piece b: blackPieces) {
+            chessBoard[b.getLoc().getPosX()][b.getLoc().getPosY()] = b;
+        }
+        for (Piece w: whitePieces) {
+            chessBoard[w.getLoc().getPosX()][w.getLoc().getPosY()] = w;
+        }
+        turn = WHITE;
     }
 }
