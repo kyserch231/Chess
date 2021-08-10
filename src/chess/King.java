@@ -92,14 +92,14 @@ public class King extends Movable implements Piece {
     public void capture() {
         // pop up of who won
         setState(INACTIVE);
-        int restart =  JOptionPane.showConfirmDialog(null,
-                "Do you want to restart?", "You Win!", JOptionPane.YES_NO_OPTION);
-
-          if (restart == JOptionPane.YES_OPTION) {
-              
-          } else if (restart == JOptionPane.NO_OPTION) {
-        	  System.exit(1);
-          }
+//        int restart =  JOptionPane.showConfirmDialog(null,
+//                "Do you want to restart?", "You Win!", JOptionPane.YES_NO_OPTION);
+//
+//          if (restart == JOptionPane.YES_OPTION) {
+//        	  ChessGUI.resetBoard();
+//          } else if (restart == JOptionPane.NO_OPTION) {
+//        	  System.exit(1);
+//          }
     }
     
     /**

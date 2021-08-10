@@ -10,6 +10,7 @@ import static chess.Constants.ROWS;
 import static chess.Constants.ROW_7;
 import static chess.Constants.COLS;
 import static chess.Constants.COL_4;
+import static chess.Constants.INACTIVE;
 
 
 
@@ -137,10 +138,10 @@ ActionListener, MouseListener {
     private static JPanel bJail = new JPanel(new GridLayout(ROWS, 2));
     
     /** Count of white captured pieces. */
-    private int wJailCount = 0;
+    private static int wJailCount = 0;
     
     /** Count of black captured pieces. */
-    private int bJailCount = 0;
+    private static int bJailCount = 0;
 
     /** Panel to hold the items displayed on the screen. */
     private static JPanel pane = new JPanel();
@@ -209,7 +210,31 @@ ActionListener, MouseListener {
         gui.getContentPane().setPreferredSize(new Dimension(PANE_SIZE, PANE_SIZE));
         gui.setVisible(true);
         gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        
+//        while(true) {
+//        	for(int i =0; i < 8; i++) {
+//        		for(int j = 0; j < 8; j++) {
+//        			if(Board.getBoard().getPiece(i, j) instanceof King) {
+//        				if((Board.getBoard().getPiece(i, j).isActive())) {
+//        					//do nothing
+//        				}
+//    			        else {
+//    			        	int restart =  JOptionPane.showConfirmDialog(null,
+//      			                  "Do you want to restart?", "You Win!", JOptionPane.YES_NO_OPTION);
+//      			  
+//    			        	if (restart == JOptionPane.YES_OPTION) {
+//    			        		gui.resetBoard();
+//    			        	} 
+//    			        	else if (restart == JOptionPane.NO_OPTION) {
+//      			          		System.exit(1);
+//    			        	}
+//    			        }
+//    				}
+//    			}
+//    		}
+//    	}
     }
+    
 
     /**
      * Sets up GUI and added images of each piece.
@@ -470,11 +495,23 @@ ActionListener, MouseListener {
 		                Board.getBoard().getPiece(xSel, ySel).move(x, y);
 		                
 	                	if (captured != null) {
+	                		// if king, reset pop-up
+	                		if(captured instanceof King) {
+	                			int restart =  JOptionPane.showConfirmDialog(null,
+	        			                  "Do you want to restart?", "You Win!", JOptionPane.YES_NO_OPTION);
+	        			  
+	      			        	if (restart == JOptionPane.YES_OPTION) {
+	      			        		resetBoard();
+	      			        	} 
+	      			        	else if (restart == JOptionPane.NO_OPTION) {
+	        			          		System.exit(1);
+	      			        	}
+	                		}
 	                		moveToJail(captured);
 	                	}
 	                
 	                	/* if pawn reaches the other side, it gets promoted */
-	                	if (Board.getBoard().getPiece(x, y) instanceof Pawn && (y == 0) ||  y == 7) {
+	                	if (Board.getBoard().getPiece(x, y) instanceof Pawn && (y == 0 ||  y == 7)) {
 	                		pawnPromotion((JPanel) e.getComponent(), x, y, Board.getBoard().getPiece(x, y).getColor());
 	                	}
 	
@@ -556,8 +593,9 @@ ActionListener, MouseListener {
     	} else {
     		Board.addBlackPiece(piece);
     	}
-
-    	Board.setPiece(piece);
+    	if(piece != null) {
+    		Board.setPiece(piece);
+    	}
     }
     
     /**
@@ -708,7 +746,7 @@ ActionListener, MouseListener {
         pane.repaint();
     }
 
-    private void resetBoard() {
+    void resetBoard() {
     	board.removeAll();
     	wJail.removeAll();
     	bJail.removeAll();
