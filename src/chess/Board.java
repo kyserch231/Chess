@@ -67,21 +67,12 @@ public class Board {
     }
     /** Matrix of chess pieces. */
     private static Piece[][] chessBoard;
-
-    /** Matrix of chess pieces. */
-    private static Piece[][] chessBoardSaved;
     
     /** Array that contains all white pieces. */
     private static ArrayList<Piece> whitePieces;
 
     /** Array that contains all black pieces. */
     private static ArrayList<Piece> blackPieces;
-
-    /** Array that contains all white pieces. */
-    private static ArrayList<Piece> whitePiecesSaved;
-
-    /** Array that contains all black pieces. */
-    private static ArrayList<Piece> blackPiecesSaved;
     
     /**
      * Initializes board and pieces.

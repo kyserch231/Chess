@@ -2,8 +2,6 @@ package chess;
 
 import static chess.Constants.ACTIVE;
 import static chess.Constants.INACTIVE;
-import static chess.Constants.BLACK;
-import static chess.Constants.WHITE;
 
 public class Bishop extends Movable implements Piece {
     /**
@@ -108,9 +106,11 @@ public class Bishop extends Movable implements Piece {
             Board.getBoard().getPiece(x, y).capture();
         }
 
-        Board.getBoard().setToEmpty(this.getPosX(), this.getPosY());
+        Board.getBoard();
+        Board.setToEmpty(this.getPosX(), this.getPosY());
         setPos(x, y);
-        Board.getBoard().setPiece(this);
+        Board.getBoard();
+        Board.setPiece(this);
 
         return captured;
     }

@@ -7,19 +7,10 @@ import static chess.Constants.GUI_SIZE;
 import static chess.Constants.PANE_SIZE;
 import static chess.Constants.BOARD_SIZE;
 import static chess.Constants.ROWS;
-import static chess.Constants.ROW_7;
 import static chess.Constants.COLS;
-import static chess.Constants.COL_4;
-import static chess.Constants.INACTIVE;
 
-
-
-import javax.swing.GroupLayout;
-
-import javax.imageio.ImageIO;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -30,13 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -44,14 +31,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-
 import java.net.URL;
-
-
-
-import java.io.File;
-import java.io.IOException;
 
 
 public class ChessGUI extends JFrame implements
@@ -113,8 +93,6 @@ ActionListener, MouseListener {
             + "(i.e., the two squares\n"
             + "diagonally in front of them) but cannot move to "
             + "these spaces if they are vacant. ";
-
-    private String pawnPro = "Select a new piece!";
     
     /** Menu bar to hold fileMenu. */
     private JMenuBar menus;
@@ -200,10 +178,10 @@ ActionListener, MouseListener {
         bJail.setPreferredSize(new Dimension(2 * SQUARE_SIZE, 8 * SQUARE_SIZE));
 
     	ChessGUI gui = new ChessGUI();
-    	gui.pane.add(gui.wJail);
-        gui.pane.add(gui.board);
-        gui.pane.add(gui.bJail);
-        gui.add(gui.pane);
+    	ChessGUI.pane.add(ChessGUI.wJail);
+        ChessGUI.pane.add(ChessGUI.board);
+        ChessGUI.pane.add(ChessGUI.bJail);
+        gui.add(ChessGUI.pane);
 
         gui.setSize(GUI_SIZE, GUI_SIZE);
         gui.setTitle("The Game of Chess");
