@@ -116,10 +116,10 @@ ActionListener, MouseListener {
     private static JPanel bJail = new JPanel(new GridLayout(ROWS, 2));
     
     /** Count of white captured pieces. */
-    private static int wJailCount = 0;
+    private int wJailCount = 0;
     
     /** Count of black captured pieces. */
-    private static int bJailCount = 0;
+    private int bJailCount = 0;
 
     /** Panel to hold the items displayed on the screen. */
     private static JPanel pane = new JPanel();

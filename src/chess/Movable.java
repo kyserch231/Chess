@@ -49,7 +49,7 @@ public class Movable {
      * @return location of piece
      */
     public Location getLoc() {
-        return position;
+        return  position;
     }
 
     /**

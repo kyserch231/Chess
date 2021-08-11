@@ -75,7 +75,7 @@
   </class>  
   <class id="9" language="java" name="chess.Board" project="chess" file="/chess/src/chess/Board.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="55" width="97" x="41" y="155"/>    
+    <position height="-1" width="-1" x="61" y="214"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -125,7 +125,7 @@
   <association id="15">    
     <end type="SOURCE" refId="9" navigable="false">      
       <attribute id="16" name="whitePieces">        
-        <position height="19" width="73" x="24" y="354"/>      
+        <position height="19" width="73" x="145" y="324"/>      
       </attribute>      
       <multiplicity id="17" minimum="0" maximum="2147483647"/>    
     </end>    
@@ -151,7 +151,7 @@
   <association id="22">    
     <end type="SOURCE" refId="9" navigable="false">      
       <attribute id="23" name="whitePiecesSaved">        
-        <position height="19" width="107" x="25" y="332"/>      
+        <position height="19" width="107" x="160" y="302"/>      
       </attribute>      
       <multiplicity id="24" minimum="0" maximum="2147483647"/>    
     </end>    
@@ -173,7 +173,7 @@
   <association id="28">    
     <end type="SOURCE" refId="9" navigable="false">      
       <attribute id="29" name="blackPieces">        
-        <position height="19" width="73" x="23" y="372"/>      
+        <position height="19" width="73" x="138" y="348"/>      
       </attribute>      
       <multiplicity id="30" minimum="0" maximum="2147483647"/>    
     </end>    
@@ -195,7 +195,7 @@
   <association id="35">    
     <end type="SOURCE" refId="9" navigable="false">      
       <attribute id="36" name="chessBoard">        
-        <position height="19" width="72" x="24" y="273"/>      
+        <position height="19" width="72" x="173" y="237"/>      
       </attribute>      
       <multiplicity id="37" minimum="0" maximum="2147483647"/>    
     </end>    
@@ -212,7 +212,9 @@
   </realization>  
   <association id="40">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="41" name="gameBoard"/>      
+      <attribute id="41" name="gameBoard">        
+        <position height="19" width="71" x="124" y="220"/>      
+      </attribute>      
       <multiplicity id="42" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
@@ -225,7 +227,7 @@
   <association id="44">    
     <end type="SOURCE" refId="9" navigable="false">      
       <attribute id="45" name="blackPiecesSaved">        
-        <position height="19" width="107" x="24" y="291"/>      
+        <position height="19" width="107" x="174" y="257"/>      
       </attribute>      
       <multiplicity id="46" minimum="0" maximum="2147483647"/>    
     </end>    
@@ -235,7 +237,7 @@
   <association id="47">    
     <end type="SOURCE" refId="9" navigable="false">      
       <attribute id="48" name="chessBoardSaved">        
-        <position height="19" width="106" x="26" y="310"/>      
+        <position height="19" width="106" x="175" y="280"/>      
       </attribute>      
       <multiplicity id="49" minimum="0" maximum="2147483647"/>    
     </end>    

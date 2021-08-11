@@ -289,14 +289,14 @@ public class Board {
 	 * @return ArrayList of white pieces
 	 */
 	public static ArrayList<Piece> getWhitePieces() {
-		return whitePieces;
+		return (ArrayList<Piece>) whitePieces.clone();
 	}
 	
 	/**
 	 * @return ArrayList of black pieces
 	 */
 	public static ArrayList<Piece> getBlackPieces() {
-		return blackPieces;
+		return (ArrayList<Piece>) blackPieces.clone();
 	}
 
 
@@ -309,7 +309,7 @@ public class Board {
                 chessBoard[i][j] = null;
             }
         }
-        blackPieces.removeAll(blackPieces);
+        blackPieces.clear();
         blackPieces.add(new Rook(COL_0, ROW_0, BLACK));
         blackPieces.add(new Knight(COL_1, ROW_0, BLACK));
         blackPieces.add(new Bishop(COL_2, ROW_0, BLACK));
@@ -322,7 +322,7 @@ public class Board {
         for (int i = 0; i < COLS; i++) {
             blackPieces.add(new Pawn(i, ROW_1, BLACK));
         }
-        whitePieces.removeAll(whitePieces);
+        whitePieces.clear();
         whitePieces.add(new Rook(COL_0, ROW_7, WHITE));
         whitePieces.add(new Knight(COL_1, ROW_7, WHITE));
         whitePieces.add(new Bishop(COL_2, ROW_7, WHITE));
